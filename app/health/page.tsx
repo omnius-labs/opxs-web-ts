@@ -15,7 +15,7 @@ const DefaultHealthResult: HealthResult = {
   git_semver: ''
 };
 
-export default function page() {
+export default function Page() {
   const [state, setState] = useState<HealthResult>(DefaultHealthResult);
 
   useEffect(() => {
