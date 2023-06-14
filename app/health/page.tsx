@@ -26,21 +26,30 @@ export default function Page() {
   }, []);
 
   return (
-    <table>
-      <tbody>
-        <tr>
-          <td>mode</td>
-          <td>{state.mode}</td>
-        </tr>
-        <tr>
-          <td>git_sha</td>
-          <td>{state.git_sha}</td>
-        </tr>
-        <tr>
-          <td>git_semver</td>
-          <td>{state.git_semver}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div className="ml-8">
+      <h1 className="my-4 text-3xl font-bold">Health</h1>
+      <table className="w-full text-sm text-left text-gray-600">
+        <thead className="bg-slate-50 border-r border-l border-b">
+          <tr>
+            <th className="px-3 py-3">Key</th>
+            <th className="px-3 py-3">Value</th>
+          </tr>
+        </thead>
+        <tbody className="border-b border-r border-l">
+          <tr className="border-b">
+            <td>mode</td>
+            <td>{state.mode}</td>
+          </tr>
+          <tr className="border-b">
+            <td>git_sha</td>
+            <td>{state.git_sha}</td>
+          </tr>
+          <tr className="border-b">
+            <td>git_semver</td>
+            <td>{state.git_semver}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }
