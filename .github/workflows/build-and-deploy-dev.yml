@@ -16,6 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup .env.production
+        run: echo "NEXT_PUBLIC_API_ORIGIN=https://dev.opxs.omnius-labs.com" > .env.production
+
       - name: Install Dependencies
         run: yarn install
 
