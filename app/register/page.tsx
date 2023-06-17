@@ -28,7 +28,7 @@ export default function Page() {
     <main className="h-screen w-screen flex justify-center items-center bg-gray-900">
       <div className="w-96">
         <h1 className="text-white mb-6 text-3xl font-bold">Register</h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-6">
             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Name
@@ -38,7 +38,7 @@ export default function Page() {
               id="name"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder=""
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
@@ -63,7 +63,6 @@ export default function Page() {
               type="password"
               id="password"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="•••••••••"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
@@ -76,7 +75,6 @@ export default function Page() {
               type="password"
               id="confirm_password"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="•••••••••"
               required
             />
           </div>
