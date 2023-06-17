@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup .env.production
-        run: echo "NEXT_PUBLIC_API_ORIGIN=https://dev.opxs.omnius-labs.com" > .env.production
+        run: echo "NEXT_PUBLIC_API_ORIGIN=https://opxs-dev.omnius-labs.com" > .env.production
 
       - name: Install Dependencies
         run: yarn install
@@ -33,4 +33,4 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy
-        run: aws s3 cp --recursive --region us-east-1 ./out "s3://opxs.v1.dev.web"
+        run: aws s3 cp --recursive --region us-east-1 ./out "s3://opxs.v1.dev.web" --content-type "text/html"
