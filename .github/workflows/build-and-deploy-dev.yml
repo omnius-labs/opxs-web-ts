@@ -33,5 +33,6 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy
-        run: aws s3 cp --recursive --region us-east-1 ./out "s3://opxs.v1.dev.web"  --exclude '*.html'
-        run: aws s3 cp --recursive --region us-east-1 ./out "s3://opxs.v1.dev.web"  --include '*.html' --content-type "text/html"
+        run: |
+          aws s3 cp --recursive --region us-east-1 ./out "s3://opxs.v1.dev.web"  --exclude '*.html'
+          aws s3 cp --recursive --region us-east-1 ./out "s3://opxs.v1.dev.web"  --include '*.html' --content-type "text/html"
