@@ -34,4 +34,4 @@ jobs:
 
       - name: Deploy
         run: |
-          aws s3 cp --recursive --region us-east-1 ./out "s3://opxs.v1.dev.web"
+          aws s3 sync --delete --exact-timestamps --region us-east-1 ./out "s3://opxs.v1.dev.web"
