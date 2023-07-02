@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    environment:
+      NGINX_SERVER_NAME: localhost.omnius-labs.com
+      NGINX_PROXY_OPXS_WEB: http://host.docker.internal:3000
+      NGINX_PROXY_OPXS_API: http://host.docker.internal:8080
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - nginx_certs:/etc/ssl/certs/nginx:ro,cached
+    depends_on:
+      certs:
+        condition: service_completed_successfully
+
+  certs:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.certs
+    environment:
+      DOMAIN: localhost.omnius-labs.com
+    volumes:
+      - nginx_certs:/app:delegated
+
+volumes:
+  nginx_certs:

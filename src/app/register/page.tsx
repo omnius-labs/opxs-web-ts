@@ -1,12 +1,14 @@
 'use client';
 
+import api from '@/api/api';
 import { useState } from 'react';
 
 export default function Page() {
+  // Email
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUpWithEmail = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(process.env.NEXT_PUBLIC_API_ORIGIN);
     const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/auth/register', {
@@ -24,11 +26,28 @@ export default function Page() {
     const result = await response.text();
     console.log(`TEST: ${result}`);
   };
+
+  // Google
+  const handleSignUpWithGoogle = async () => {
+    const res = await api.get('/api/v1/auth/google/nonce');
+    const nonce = res.data.value;
+
+    const baseUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+    const clientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID;
+    const responseType = 'code';
+    const scope = 'openid email profile';
+    const redirectUri = window.location.origin + '/register/oauth2/google';
+
+    const url = `${baseUrl}?client_id=${clientId}&response_type=${responseType}&scope=${scope}&redirect_uri=${redirectUri}&nonce=${nonce}`;
+    const encodedUrl = encodeURI(url);
+    window.location.replace(encodedUrl);
+  };
+
   return (
     <main className="h-screen w-screen flex justify-center items-center bg-gray-900">
       <div className="w-96">
         <h1 className="text-white mb-6 text-3xl font-bold">Register</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSignUpWithEmail}>
           <div className="mb-6">
             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Name
@@ -85,6 +104,14 @@ export default function Page() {
             Submit
           </button>
         </form>
+      </div>
+      <div>
+        <button
+          onClick={handleSignUpWithGoogle}
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Sign up with Google
+        </button>
       </div>
     </main>
   );
