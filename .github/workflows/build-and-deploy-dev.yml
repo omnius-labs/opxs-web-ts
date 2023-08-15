@@ -18,8 +18,10 @@ jobs:
 
       - name: Setup .env.production
         run: |
-          echo "NEXT_PUBLIC_API_ORIGIN=https://opxs-dev.omnius-labs.com" >> .env.production
-          echo "NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID=1079744307485-b0ktb5ivtnq3ldssm140ks5v018p2pu2.apps.googleusercontent.com" >> .env.production
+          `cat << EOF > .env.production
+          NEXT_PUBLIC_API_ORIGIN=https://opxs-dev.omnius-labs.com
+          NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID=1079744307485-b0ktb5ivtnq3ldssm140ks5v018p2pu2.apps.googleusercontent.com
+          EOF`
 
       - name: Install Dependencies
         run: yarn install

@@ -1,6 +1,7 @@
 'use client';
 
 import api from '@/api/api';
+import Cookies from 'js-cookie';
 import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
 
@@ -11,11 +12,17 @@ export default function Page() {
     const code = searchParams.get('code');
     const redirectUri = window.location.origin + '/register/oauth2/google';
 
-    const result = await api.post('/api/v1/auth/google/register', {
+    const res = await api.post('/api/v1/auth/google/register', {
       code: code,
       redirect_uri: redirectUri
     });
-    return result;
+
+    Cookies.set('refreshToken', res.data, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'strict'
+    });
+    return res;
   }, []);
 
   return (
