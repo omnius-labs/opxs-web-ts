@@ -1,6 +1,6 @@
 'use client';
 
-import axios from 'axios';
+import api from '@/api/api';
 import { useEffect, useState } from 'react';
 
 type Item = {
@@ -12,7 +12,7 @@ export default function Page() {
   const [state, setState] = useState<Item[]>([]);
 
   useEffect(() => {
-    axios.get(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/health').then((res) => {
+    api.get('/api/v1/health').then((res) => {
       const items: Item[] = [];
       for (const [key, value] of Object.entries(res.data)) {
         items.push({ key, value });

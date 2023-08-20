@@ -9,17 +9,17 @@ export default function Page() {
 
   const state = useAsync(async () => {
     const code = searchParams.get('code');
-    const redirectUri = window.location.origin + '/auth/register/oauth2/google';
+    const redirectUri = location.origin + '/auth/register/oauth2/google';
 
     const res = await api.post('/api/v1/auth/google/register', {
       code: code,
       redirect_uri: redirectUri
     });
 
-    window.localStorage.setItem('refreshToken', res.data.refresh_token);
-    window.localStorage.setItem('accessToken', res.data.access_token);
+    localStorage.setItem('refreshToken', res.data.refresh_token);
+    localStorage.setItem('accessToken', res.data.access_token);
 
-    window.location.replace(window.location.origin);
+    location.replace(location.origin);
 
     return res;
   }, []);

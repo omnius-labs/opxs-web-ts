@@ -36,11 +36,11 @@ export default function Page() {
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID;
     const responseType = 'code';
     const scope = 'openid email profile';
-    const redirectUri = window.location.origin + '/auth/register/oauth2/google';
+    const redirectUri = location.origin + '/auth/register/oauth2/google';
 
     const url = `${baseUrl}?client_id=${clientId}&response_type=${responseType}&scope=${scope}&redirect_uri=${redirectUri}&nonce=${nonce}`;
     const encodedUrl = encodeURI(url);
-    window.location.replace(encodedUrl);
+    location.replace(encodedUrl);
   };
 
   return (

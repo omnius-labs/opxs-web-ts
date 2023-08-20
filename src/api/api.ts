@@ -15,7 +15,7 @@ class ApiClientProvider {
       (config) => {
         const token = localStorage.getItem('accessToken');
         if (token) {
-          config.headers['Authorization'] = `Bearer ${token}`;
+          config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
       },
@@ -47,11 +47,11 @@ class ApiClientProvider {
   private async refreshToken() {
     try {
       const res = await this.http.post('/api/v1/auth/token/refresh', {
-        refresh_token: window.localStorage.getItem('refreshToken')
+        refresh_token: localStorage.getItem('refreshToken')
       });
 
       if (res.status === 200) {
-        window.localStorage.setItem('accessToken', res.data.access_token);
+        localStorage.setItem('accessToken', res.data.access_token);
       }
     } catch (error) {
       console.log(error);
