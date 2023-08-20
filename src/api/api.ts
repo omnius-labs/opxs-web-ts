@@ -1,7 +1,6 @@
 'use client';
 
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 class ApiClientProvider {
   private http;
@@ -34,24 +33,25 @@ class ApiClientProvider {
   // access token が期限切れになる前に、refresh token を使用して更新
   private async refreshToken() {
     try {
-      const response = await this.http.post('/refresh-token', {
-        refreshToken: Cookies.get('refreshToken')
+      const res = await this.http.post('/api/v1/auth/token/refresh', {
+        refresh_token: window.localStorage.getItem('refreshToken')
       });
 
-      if (response.status === 200) {
-        Cookies.set('accessToken', response.data.accessToken, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV !== 'development',
-          sameSite: 'strict'
-        });
-        this.http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.accessToken;
+      if (res.status === 200) {
+        window.localStorage.setItem('accessToken', res.data.access_token);
+        this.http.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.accessToken;
       }
     } catch (error) {
+      console.log(error);
       throw new Error('Refresh token failed');
     }
   }
 
   instance() {
+    const accessToken = window.localStorage.getItem('accessToken');
+    if (accessToken !== null) {
+      this.http.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+    }
     return this.http;
   }
 }
