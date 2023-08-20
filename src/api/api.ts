@@ -39,7 +39,7 @@ class ApiClientProvider {
 
       if (res.status === 200) {
         window.localStorage.setItem('accessToken', res.data.access_token);
-        this.http.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.accessToken;
+        this.http.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.access_token;
       }
     } catch (error) {
       console.log(error);
