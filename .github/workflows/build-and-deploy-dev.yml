@@ -20,7 +20,7 @@ jobs:
         run: |
           `cat << EOF > .env.production
           NEXT_PUBLIC_API_ORIGIN=https://opxs-dev.omnius-labs.com
-          NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID=1079744307485-b0ktb5ivtnq3ldssm140ks5v018p2pu2.apps.googleusercontent.com
+          NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID=543239851072-5c1b1veprgf96h7nfp2g16614p0luqu0.apps.googleusercontent.com
           EOF`
 
       - name: Install Dependencies
