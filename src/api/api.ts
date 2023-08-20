@@ -48,9 +48,11 @@ class ApiClientProvider {
   }
 
   instance() {
-    const accessToken = window.localStorage.getItem('accessToken');
-    if (accessToken !== null) {
-      this.http.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+    if (typeof window !== 'undefined') {
+      const accessToken = window.localStorage.getItem('accessToken');
+      if (accessToken !== null) {
+        this.http.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+      }
     }
     return this.http;
   }
