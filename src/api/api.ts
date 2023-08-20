@@ -11,6 +11,19 @@ class ApiClientProvider {
       withCredentials: true // Cookie を送信するために必要
     });
 
+    this.http.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+          config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+
     this.http.interceptors.response.use(
       (response) => response,
       async (error) => {
@@ -39,7 +52,6 @@ class ApiClientProvider {
 
       if (res.status === 200) {
         window.localStorage.setItem('accessToken', res.data.access_token);
-        this.http.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.access_token;
       }
     } catch (error) {
       console.log(error);
@@ -48,12 +60,6 @@ class ApiClientProvider {
   }
 
   instance() {
-    if (typeof window !== 'undefined') {
-      const accessToken = window.localStorage.getItem('accessToken');
-      if (accessToken !== null) {
-        this.http.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
-      }
-    }
     return this.http;
   }
 }

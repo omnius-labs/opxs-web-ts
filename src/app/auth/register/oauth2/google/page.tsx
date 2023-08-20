@@ -18,7 +18,6 @@ export default function Page() {
 
     window.localStorage.setItem('refreshToken', res.data.refresh_token);
     window.localStorage.setItem('accessToken', res.data.access_token);
-    api.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.accessToken;
 
     window.location.replace(window.location.origin);
 
