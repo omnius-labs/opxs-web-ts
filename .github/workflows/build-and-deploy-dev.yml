@@ -39,3 +39,4 @@ jobs:
       - name: Deploy
         run: |
           aws s3 sync --delete --exact-timestamps --region us-east-1 ./out "s3://opxs.v1.dev.web"
+          aws cloudfront create-invalidation --region us-east-1 --distribution-id "E6K0SSVZT5NIC" --paths "/*"
