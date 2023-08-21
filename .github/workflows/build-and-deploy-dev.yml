@@ -23,11 +23,19 @@ jobs:
           NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID=543239851072-5c1b1veprgf96h7nfp2g16614p0luqu0.apps.googleusercontent.com
           EOF`
 
-      - name: Install Dependencies
-        run: yarn install
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .node-version
+
+      - name: Check Node.js version
+        run: node --version
+
+      - name: Install dependencies
+        run: yarn install --immutable --immutable-cache --check-cache
 
       - name: Build
-        run: yarn run export
+        run: yarn build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
