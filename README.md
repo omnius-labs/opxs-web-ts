@@ -5,6 +5,8 @@
 
 ### Local
 
+https://localhost.omnius-labs.com/
+
 ```sh
 # start opxs-web
 yarn run dev
