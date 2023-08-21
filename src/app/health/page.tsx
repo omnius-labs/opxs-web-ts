@@ -38,7 +38,7 @@ export default function Page() {
           </thead>
           <tbody>
             {state.map((item, index) => (
-              <tr key={item.key} className="bg-white border-b bg-gray-800 border-gray-700">
+              <tr key={item.key} className="border-b bg-gray-800 border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                   {item.key}
                 </th>

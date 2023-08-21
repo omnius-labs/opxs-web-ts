@@ -24,7 +24,7 @@ export default function Page() {
   return (
     <main className="h-screen w-screen flex justify-center items-center bg-gray-900">
       <div className="p-16 h-full w-full">
-        <h1 className="text-white mb-6 text-3xl font-bold">Health</h1>
+        <h1 className="text-white mb-6 text-3xl font-bold">Me</h1>
         <table className="w-full text-sm text-left text-gray-400">
           <thead className="text-xs uppercase bg-gray-700">
             <tr>
@@ -38,7 +38,7 @@ export default function Page() {
           </thead>
           <tbody>
             {state.map((item, index) => (
-              <tr key={item.key} className="bg-white border-b bg-gray-800 border-gray-700">
+              <tr key={item.key} className="border-b bg-gray-800 border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                   {item.key}
                 </th>
