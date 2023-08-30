@@ -1030,7 +1030,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:*, @testing-library/jest-dom@npm:^6.1.2":
+"@testing-library/jest-dom@npm:^6.1.2":
   version: 6.1.2
   resolution: "@testing-library/jest-dom@npm:6.1.2"
   dependencies:
@@ -1163,6 +1163,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jest@npm:^29.5.4":
+  version: 29.5.4
+  resolution: "@types/jest@npm:29.5.4"
+  dependencies:
+    expect: ^29.0.0
+    pretty-format: ^29.0.0
+  checksum: 38ed5942f44336452efd0f071eab60aaa57cd8d46530348d0a3aa5a691dcbf1366c4ca8f6ee8364efb45b4413bfefae443e5d4f469246a472a03b21ac11cd4ed
+  languageName: node
+  linkType: hard
+
 "@types/js-cookie@npm:^2.2.6":
   version: 2.2.7
   resolution: "@types/js-cookie@npm:2.2.7"
@@ -1263,15 +1273,6 @@ __metadata:
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
   checksum: 205fdbe3326b7046d7eaf5e494d8084f2659086a266f3f9cf00bccc549c8e36e407f88168ad4383c8b07099957ad669f75f2532ed4bc70be2b037330f7bae019
-  languageName: node
-  linkType: hard
-
-"@types/testing-library__jest-dom@npm:^6":
-  version: 6.0.0
-  resolution: "@types/testing-library__jest-dom@npm:6.0.0"
-  dependencies:
-    "@testing-library/jest-dom": "*"
-  checksum: 1b4db1aa3c4225524203b4d1c3b36c7129e9d1e0547e46d2e5283c3ece226a3c16f5f20387cc71b33ab0eecd99d0cf91111bb327e8adb240388d99fb94af7a4d
   languageName: node
   linkType: hard
 
@@ -3250,7 +3251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expect@npm:^29.6.4":
+"expect@npm:^29.0.0, expect@npm:^29.6.4":
   version: 29.6.4
   resolution: "expect@npm:29.6.4"
   dependencies:
@@ -5824,12 +5825,12 @@ __metadata:
   dependencies:
     "@testing-library/jest-dom": ^6.1.2
     "@testing-library/react": ^14.0.0
+    "@types/jest": ^29.5.4
     "@types/js-cookie": ^3
     "@types/node": 20.3.1
     "@types/prettier": ^2
     "@types/react": 18.2.12
     "@types/react-dom": 18.2.5
-    "@types/testing-library__jest-dom": ^6
     autoprefixer: 10.4.14
     axios: ^1.4.0
     eslint: 8.42.0
@@ -6161,7 +6162,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-format@npm:^29.6.3":
+"pretty-format@npm:^29.0.0, pretty-format@npm:^29.6.3":
   version: 29.6.3
   resolution: "pretty-format@npm:29.6.3"
   dependencies:
