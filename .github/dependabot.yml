@@ -26,8 +26,6 @@ updates:
       interval: "daily"
     labels:
       - "dependabot"
-    ignore:
-      - dependency-name: "dtolnay/rust-toolchain"
     groups:
       dependencies:
         patterns:
