@@ -37,6 +37,6 @@
     "jest": "^29.6.4",
     "jest-environment-jsdom": "^29.6.4",
     "prettier": "^2.8.8",
-    "serve": "^14.2.0"
+    "serve": "^14.2.1"
   }
 }
