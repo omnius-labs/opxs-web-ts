@@ -1,7 +1,7 @@
 'use client';
 
-import api from '@/api/api';
-import { useEffect, useState } from 'react';
+import { me } from '@/api/auth';
+import { useAsync } from 'react-use';
 
 type Item = {
   key: string;
@@ -9,16 +9,14 @@ type Item = {
 };
 
 export default function Page() {
-  const [state, setState] = useState<Item[]>([]);
+  const state = useAsync(async () => {
+    const user = await me();
+    const items: Item[] = [];
+    for (const [key, value] of Object.entries(user)) {
+      items.push({ key, value });
+    }
 
-  useEffect(() => {
-    api.get(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/auth/me').then((res) => {
-      const items: Item[] = [];
-      for (const [key, value] of Object.entries(res.data)) {
-        items.push({ key, value });
-      }
-      setState(items);
-    });
+    return items;
   }, []);
 
   return (
@@ -37,7 +35,7 @@ export default function Page() {
             </tr>
           </thead>
           <tbody>
-            {state.map((item, index) => (
+            {state.value?.map((item, index) => (
               <tr key={item.key} className="border-b bg-gray-800 border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                   {item.key}

@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-class ApiClientProvider {
+class HttpClientProvider {
   private http;
 
   constructor() {
@@ -64,5 +64,5 @@ class ApiClientProvider {
   }
 }
 
-const provider = new ApiClientProvider();
+const provider = new HttpClientProvider();
 export default provider.instance();
