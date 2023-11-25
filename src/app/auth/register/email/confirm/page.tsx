@@ -8,12 +8,10 @@ export default function Page() {
   const searchParams = useSearchParams();
 
   const state = useAsync(async () => {
-    const code = searchParams.get('code');
-    const redirectUri = location.origin + '/auth/register/oauth2/google';
+    const token = searchParams.get('token');
 
-    const res = await api.post('/api/v1/auth/google/register', {
-      code: code,
-      redirect_uri: redirectUri
+    const res = await api.post('/api/v1/auth/email/confirm', {
+      token: token
     });
 
     localStorage.setItem('refreshToken', res.data.refresh_token);
