@@ -6329,7 +6329,7 @@ __metadata:
     prettier: ^3.2.4
     react: 18.2.0
     react-dom: 18.2.0
-    react-use: ^17.4.3
+    react-use: ^17.5.0
     serve: ^14.2.1
     tailwindcss: 3.4.1
     typescript: 5.3.3
@@ -6843,9 +6843,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-use@npm:^17.4.3":
-  version: 17.4.3
-  resolution: "react-use@npm:17.4.3"
+"react-use@npm:^17.5.0":
+  version: 17.5.0
+  resolution: "react-use@npm:17.5.0"
   dependencies:
     "@types/js-cookie": ^2.2.6
     "@xobotyi/scrollbar-width": ^1.9.5
@@ -6864,7 +6864,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: efa54c795ca900902022096c4c87b2a8c2290fe1748f3b2bf4d31ad40bfa35c1520f67e3da5f0a227a6429256df7bca251d9323487652debc924de5208a9cedd
+  checksum: d3164db313f27aa701dcf87177861db6e19624ea7dd8bc81805352af7f6bf04072010b9776da4ac458d6bd318759ee69b12763d96098d83c75b7d66ffc689e3a
   languageName: node
   linkType: hard
 
