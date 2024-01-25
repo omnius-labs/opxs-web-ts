@@ -1,7 +1,18 @@
 'use client';
 
-import { health } from '@/api/health';
+import api from '@/lib/api';
 import { useAsync } from 'react-use';
+
+type HealthCondition = {
+  git_semver: number;
+  git_sha: string;
+  mode: string;
+};
+
+export async function health(): Promise<HealthCondition> {
+  const res = await api.get(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/health');
+  return res.data as HealthCondition;
+}
 
 type Item = {
   key: string;

@@ -8,9 +8,9 @@ export default function Page() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const handleSignUpWithEmail = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignInWithEmail = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await api.post(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/auth/email/register', {
+    await api.post(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/auth/email/login', {
       name: name,
       email: email,
       password: password
@@ -18,7 +18,7 @@ export default function Page() {
   };
 
   // Google
-  const handleSignUpWithGoogle = async () => {
+  const handleSignInWithGoogle = async () => {
     const res = await api.get('/api/v1/auth/google/nonce');
     const nonce = res.data.value;
 
@@ -26,7 +26,7 @@ export default function Page() {
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID;
     const responseType = 'code';
     const scope = 'openid email profile';
-    const redirectUri = location.origin + '/auth/register/oauth2/google';
+    const redirectUri = location.origin + '/auth/login/oauth2/google';
 
     const url = `${baseUrl}?client_id=${clientId}&response_type=${responseType}&scope=${scope}&redirect_uri=${redirectUri}&nonce=${nonce}`;
     const encodedUrl = encodeURI(url);
@@ -37,10 +37,10 @@ export default function Page() {
     <main className="flex justify-center items-center h-screen w-screen bg-gray-900">
       <div className="w-96">
         <div className="flex-col flex justify-center items-center">
-          <h1 className="text-white mb-6 text-4xl font-bold">Register</h1>
+          <h1 className="text-white mb-6 text-4xl font-bold">Login</h1>
           <div className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-lg px-5 py-2.5">
-            <button className="w-full" onClick={handleSignUpWithGoogle}>
-              Sign up with Google
+            <button className="w-full" onClick={handleSignInWithGoogle}>
+              Sign in with Google
             </button>
           </div>
         </div>
@@ -53,9 +53,9 @@ export default function Page() {
 
         <div>
           <div className="flex-col flex justify-center items-center">
-            <h2 className="text-white mb-6 text-2xl font-bold">EMail register</h2>
+            <h2 className="text-white mb-6 text-2xl font-bold">EMail login</h2>
           </div>
-          <form onSubmit={handleSignUpWithEmail}>
+          <form onSubmit={handleSignInWithEmail}>
             <div className="mb-6">
               <label htmlFor="name" className="block mb-2 text-sm font-medium text-white">
                 Name

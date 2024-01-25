@@ -21,6 +21,9 @@ export default function Home() {
               <li>
                 <Link href="/auth/register">register</Link>
               </li>
+              <li>
+                <Link href="/auth/login">login</Link>
+              </li>
             </ul>
           </li>
         </ul>
