@@ -1046,9 +1046,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "@testing-library/jest-dom@npm:6.2.0"
+"@testing-library/jest-dom@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "@testing-library/jest-dom@npm:6.3.0"
   dependencies:
     "@adobe/css-tools": ^4.3.2
     "@babel/runtime": ^7.9.2
@@ -1060,11 +1060,14 @@ __metadata:
     redent: ^3.0.0
   peerDependencies:
     "@jest/globals": ">= 28"
+    "@types/bun": "*"
     "@types/jest": ">= 28"
     jest: ">= 28"
     vitest: ">= 0.32"
   peerDependenciesMeta:
     "@jest/globals":
+      optional: true
+    "@types/bun":
       optional: true
     "@types/jest":
       optional: true
@@ -1072,7 +1075,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 3d46e36b1b7c2cb3c92f64d55d458aab44ae135ac77299df14d14dcf567a286590de58b2f140011b8f7a343f0703ff88f144f27c6ae4921fd612741771d8ee2c
+  checksum: cea8aa17895cf4aff573fedee80e8a592611caf7bc724702fc70b3b7bfee94becd3a10873c818d931424018d6fdeeca9d1a2ea5f53b74092ad5e8e09f03dde90
   languageName: node
   linkType: hard
 
@@ -1237,12 +1240,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.11.5":
-  version: 20.11.5
-  resolution: "@types/node@npm:20.11.5"
+"@types/node@npm:20.11.6":
+  version: 20.11.6
+  resolution: "@types/node@npm:20.11.6"
   dependencies:
     undici-types: ~5.26.4
-  checksum: a542727de1334ae20a3ca034b0ecf4b464a57ca01efc4f9cf43bd9ab93896125ab3c2de060ecd8f6ae23b86c6bf3463f681b643e69c032c6a662d376c98a6092
+  checksum: 54b3739f42d9c2266fd724d8ecbf50bc64eb0563343b65a6ea874a51a7fc8bb4793bf3a1b2222e40e3b7bd62cf5af5609899bf1a3de8b69748dcac65e63e8bdc
   languageName: node
   linkType: hard
 
@@ -1848,14 +1851,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.6.5":
-  version: 1.6.5
-  resolution: "axios@npm:1.6.5"
+"axios@npm:^1.6.6":
+  version: 1.6.6
+  resolution: "axios@npm:1.6.6"
   dependencies:
     follow-redirects: ^1.15.4
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
-  checksum: e28d67b2d9134cb4608c44d8068b0678cfdccc652742e619006f27264a30c7aba13b2cd19c6f1f52ae195b5232734925928fb192d5c85feea7edd2f273df206d
+  checksum: 0a299c22643992a4f00c8f143e5d41815ff3c2bd56b9b9cc9cd3b6dfe43e9beabdd305b6d0d6ef41748021498a389165d32963c556da4a48f4042b1ea95dd30e
   languageName: node
   linkType: hard
 
@@ -6322,17 +6325,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "opxs-web@workspace:."
   dependencies:
-    "@testing-library/jest-dom": ^6.2.0
+    "@testing-library/jest-dom": ^6.3.0
     "@testing-library/react": ^14.1.2
     "@types/jest": ^29.5.11
     "@types/js-cookie": ^3
     "@types/jsonwebtoken": ^9
-    "@types/node": 20.11.5
+    "@types/node": 20.11.6
     "@types/prettier": ^3
     "@types/react": 18.2.48
     "@types/react-dom": 18.2.18
     autoprefixer: 10.4.17
-    axios: ^1.6.5
+    axios: ^1.6.6
     eslint: 8.56.0
     eslint-config-next: 14.1.0
     eslint-config-prettier: ^9.1.0
@@ -6346,7 +6349,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-dropzone: ^14.2.3
-    react-use: ^17.4.3
+    react-use: ^17.5.0
     serve: ^14.2.1
     tailwindcss: 3.4.1
     typescript: 5.3.3
@@ -6873,9 +6876,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-use@npm:^17.4.3":
-  version: 17.4.3
-  resolution: "react-use@npm:17.4.3"
+"react-use@npm:^17.5.0":
+  version: 17.5.0
+  resolution: "react-use@npm:17.5.0"
   dependencies:
     "@types/js-cookie": ^2.2.6
     "@xobotyi/scrollbar-width": ^1.9.5
@@ -6894,7 +6897,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: efa54c795ca900902022096c4c87b2a8c2290fe1748f3b2bf4d31ad40bfa35c1520f67e3da5f0a227a6429256df7bca251d9323487652debc924de5208a9cedd
+  checksum: d3164db313f27aa701dcf87177861db6e19624ea7dd8bc81805352af7f6bf04072010b9776da4ac458d6bd318759ee69b12763d96098d83c75b7d66ffc689e3a
   languageName: node
   linkType: hard
 
@@ -8164,11 +8167,11 @@ __metadata:
 
 "typescript@patch:typescript@5.3.3#~builtin<compat/typescript>":
   version: 5.3.3
-  resolution: "typescript@patch:typescript@npm%3A5.3.3#~builtin<compat/typescript>::version=5.3.3&hash=5da071"
+  resolution: "typescript@patch:typescript@npm%3A5.3.3#~builtin<compat/typescript>::version=5.3.3&hash=e012d7"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: f61375590b3162599f0f0d5b8737877ac0a7bc52761dbb585d67e7b8753a3a4c42d9a554c4cc929f591ffcf3a2b0602f65ae3ce74714fd5652623a816862b610
+  checksum: 4e604a9e107ce0c23b16a2f8d79d0531d4d8fe9ebbb7a8c395c66998c39892f0e0a071ef0b0d4e66420a8ec2b8d6cfd9cdb29ba24f25b37cba072e9282376df9
   languageName: node
   linkType: hard
 
