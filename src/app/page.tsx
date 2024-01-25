@@ -26,6 +26,14 @@ export default function Home() {
               </li>
             </ul>
           </li>
+          <li>
+            image
+            <ul className=" list-inside list-disc text-white">
+              <li>
+                <Link href="/image/convert">convert</Link>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </main>
