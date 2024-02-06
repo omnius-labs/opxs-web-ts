@@ -34,9 +34,10 @@ export default function Page() {
           if (res2.data.status === 'Completed') {
             await s3.get(res2.data.download_uri);
             const link = document.createElement('a');
-            link.download = 'result.csv';
             link.href = res2.data.download_uri;
+            link.download = file.name + '.png';
             link.click();
+            break;
           }
 
           await new Promise((resolve) => setTimeout(resolve, 1000));
