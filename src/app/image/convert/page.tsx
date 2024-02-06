@@ -24,7 +24,7 @@ export default function Page() {
         });
         await s3.put(res.data.upload_uri, binaryStr);
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 1000; i++) {
           const res2 = await api.get(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/image/convert/status', {
             params: {
               job_id: res.data.job_id
