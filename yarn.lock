@@ -1294,14 +1294,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.53":
-  version: 18.2.53
-  resolution: "@types/react@npm:18.2.53"
+"@types/react@npm:18.2.55":
+  version: 18.2.55
+  resolution: "@types/react@npm:18.2.55"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 0dda3a7868c52a5c84287dbd12280c16cee7233571c24c00b14d2e9e3d30596ea96ea9f7808302a8d8bff81f9b49a8435d1814d2e63142376a1084b7e0d84f6a
+  checksum: a8eb4fa77f73831b9112d4f11a7006217dc0740361649b9b0da3fd441d151a9cd415d5d68b91c0af4e430e063424d301c77489e5edaddc9f711c4e46cf9818a5
   languageName: node
   linkType: hard
 
@@ -6332,7 +6332,7 @@ __metadata:
     "@types/jsonwebtoken": ^9
     "@types/node": 20.11.16
     "@types/prettier": ^3
-    "@types/react": 18.2.53
+    "@types/react": 18.2.55
     "@types/react-dom": 18.2.18
     autoprefixer: 10.4.17
     axios: ^1.6.7
@@ -6344,7 +6344,7 @@ __metadata:
     js-cookie: ^3.0.5
     jsonwebtoken: ^9.0.2
     next: 14.1.0
-    postcss: 8.4.33
+    postcss: 8.4.34
     prettier: ^3.2.5
     react: 18.2.0
     react-dom: 18.2.0
@@ -6639,14 +6639,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.33":
-  version: 8.4.33
-  resolution: "postcss@npm:8.4.33"
+"postcss@npm:8.4.34":
+  version: 8.4.34
+  resolution: "postcss@npm:8.4.34"
   dependencies:
     nanoid: ^3.3.7
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
-  checksum: 6f98b2af4b76632a3de20c4f47bf0e984a1ce1a531cf11adcb0b1d63a6cbda0aae4165e578b66c32ca4879038e3eaad386a6be725a8fb4429c78e3c1ab858fe9
+  checksum: 46c32b51810a23060288c86fdb5195237c497f952c674167fd1cbb3f0c628389a3fd48ae0b289447e5368b4abbc95f81e2d318bfdc5554063b2a7e8192e1a540
   languageName: node
   linkType: hard
 
