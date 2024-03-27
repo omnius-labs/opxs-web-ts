@@ -1,7 +1,6 @@
 'use client';
 
-import { Button } from '../button/Button';
-import './header.css';
+import { Avatar, Button, Dropdown, Flowbite, Navbar } from 'flowbite-react';
 
 type User = {
   name: string;
@@ -9,32 +8,48 @@ type User = {
 
 interface HeaderProps {
   user?: User;
-  onLogin: () => void;
-  onLogout: () => void;
-  onCreateAccount: () => void;
+  onSignIn: () => void;
+  onSignOut: () => void;
+  onSignUp: () => void;
 }
 
-export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => (
-  <header>
-    <div className="storybook-header">
-      <div>
-        <h1>Opxs</h1>
-      </div>
+export const Header = ({ user, onSignIn, onSignOut, onSignUp }: HeaderProps) => (
+  <Flowbite theme={{ mode: 'dark' }}>
+    <Navbar fluid rounded>
+      <Navbar.Brand href={process.env.NEXT_PUBLIC_API_ORIGIN}>
+        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Opxs</span>
+      </Navbar.Brand>
       <div>
         {user ? (
           <>
-            <span className="welcome">
-              Welcome, <b>{user.name}</b>!
-            </span>
-            <Button size="small" onClick={onLogout} label="Log out" />
+            <div className="flex md:order-2">
+              <Dropdown arrowIcon={false} inline label={<Avatar alt="User settings" rounded />}>
+                <Dropdown.Header>
+                  <span className="block text-sm">Bonnie Green</span>
+                  <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                </Dropdown.Header>
+                <Dropdown.Item>Dashboard</Dropdown.Item>
+                <Dropdown.Item>Settings</Dropdown.Item>
+                <Dropdown.Item>Earnings</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={onSignOut}>Sign out</Dropdown.Item>
+              </Dropdown>
+              <Navbar.Toggle />
+            </div>
           </>
         ) : (
           <>
-            <Button size="small" onClick={onLogin} label="Log in" />
-            <Button primary size="small" onClick={onCreateAccount} label="Sign up" />
+            <div className="flex md:order-2 gap-2">
+              <Button color="dark" size="sm" onClick={onSignIn}>
+                Sign in
+              </Button>
+              <Button color="light" size="sm" onClick={onSignUp}>
+                Sign up
+              </Button>
+            </div>
           </>
         )}
       </div>
-    </div>
-  </header>
+    </Navbar>
+  </Flowbite>
 );
