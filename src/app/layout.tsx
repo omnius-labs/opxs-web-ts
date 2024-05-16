@@ -3,15 +3,12 @@
 import { Suspense } from 'react';
 import './globals.css';
 
-import { Header } from '@/components/header/Header';
-import { ThemeModeScript } from 'flowbite-react';
+import Header from '@/components/header/Header';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <ThemeModeScript mode="dark" />
-      </head>
+      <head></head>
       <body className="bg-slate-900">
         <Header
           onSignIn={function (): void {
