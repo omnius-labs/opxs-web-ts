@@ -5,7 +5,7 @@ export AWS_PROFILE=opxs-dev
 
 export AWS_REGION=us-east-1
 export NEXT_PUBLIC_API_ORIGIN=https://opxs-dev.omnius-labs.com
-export NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID='543239851072-5c1b1veprgf96h7nfp2g16614p0luqu0.apps.googleusercontent.com'
+export NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID='220874586151-ui4d5vkvbngtm0fjqu719o28ef5j3p23.apps.googleusercontent.com'
 
 yarn install --immutable --immutable-cache --check-cache
 yarn build

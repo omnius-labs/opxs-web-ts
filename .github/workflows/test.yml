@@ -26,7 +26,7 @@ jobs:
         run: node --version
 
       - name: Install dependencies
-        run: yarn install --immutable --immutable-cache --check-cache
+        run: npm ci
 
       - name: Test
-        run: yarn test
+        run: npm test

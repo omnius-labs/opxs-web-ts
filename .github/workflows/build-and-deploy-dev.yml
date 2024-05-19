@@ -20,7 +20,7 @@ jobs:
         run: |
           `cat << EOF > .env.production
           NEXT_PUBLIC_API_ORIGIN=https://opxs-dev.omnius-labs.com
-          NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID=543239851072-5c1b1veprgf96h7nfp2g16614p0luqu0.apps.googleusercontent.com
+          NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID=220874586151-ui4d5vkvbngtm0fjqu719o28ef5j3p23.apps.googleusercontent.com
           EOF`
 
       - name: Setup Node.js
@@ -32,10 +32,10 @@ jobs:
         run: node --version
 
       - name: Install dependencies
-        run: yarn install --immutable --immutable-cache --check-cache
+        run: npm ci
 
       - name: Build
-        run: yarn build
+        run: npm build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
