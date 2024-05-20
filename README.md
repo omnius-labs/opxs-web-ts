@@ -9,7 +9,7 @@ https://localhost.omnius-labs.com/
 
 ```sh
 # start opxs-web
-yarn run dev
+npm run dev
 ```
 
 ```sh

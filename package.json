@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
-    "start": "next start",
-    "serve": "yarn export && serve ./out",
+    "serve": "next build && npx serve@latest ./out",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
     "test": "next lint && jest",
     "storybook": "storybook dev -p 6006",
