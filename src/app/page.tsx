@@ -1,43 +1,20 @@
 'use client';
 
-import Link from 'next/link';
+import FeatureCard from '@/components/top/FeatureCard';
 
 export default function Home() {
   return (
-    <main className="flex justify-center items-center h-screen w-screen bg-gray-900">
-      <div className="w-96">
-        <div className="flex-col flex justify-center items-center">
-          <h1 className="text-white mb-6 text-4xl font-bold">Index</h1>
-        </div>
-
-        <ul className="list-disc text-white">
-          <li>
-            <Link href="/health">health</Link>
-          </li>
-          <li>
-            auth
-            <ul className=" list-inside list-disc text-white">
-              <li>
-                <Link href="/auth/me">me</Link>
-              </li>
-              <li>
-                <Link href="/auth/register">register</Link>
-              </li>
-              <li>
-                <Link href="/auth/login">login</Link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            image
-            <ul className=" list-inside list-disc text-white">
-              <li>
-                <Link href="/image/convert">convert</Link>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+    <main className="flex flex-col justify-center items-center h-screen w-screen">
+      <h1 className="text-4xl text-center text-green-600">Opxsへようこそ！</h1>
+      <p className="text-xl text-center text-gray-600 m-8">
+        Opxsは、あなたのコンテンツ変換ニーズを解決するためのツールです。画像、テキスト、音声など、さまざまな形式のコンテンツを簡単に変換できます。
+      </p>
+      <FeatureCard
+        title="画像コンバーター"
+        description="画像を別の形式に変換します"
+        imageUrl="/path/to/image.jpg"
+        href="/image-converter"
+      />
     </main>
   );
 }
