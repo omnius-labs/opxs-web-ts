@@ -1,21 +1,67 @@
 # Opxs - Omnius Anything Service (Web)
 [![test](https://github.com/omnius-labs/opxs-web/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/omnius-labs/opxs-web/actions/workflows/test.yml)
 
+This repository contains the backend code for the Opxs platform, a suite of experimental web services written in TypeScript and Next.js.
+
+### Backend
+
+The backend for this project is developed in Rust and can be found here:
+https://github.com/omnius-labs/opxs-apps-rs
+
+## Features
+
+- **Image Converter**: Convert images between different formats online.
+
 ## Development
 
-### Local
+### Getting Started
 
-https://localhost.omnius-labs.com/
+To run the Opxs web locally, you need to set up your environment first.
+
+### Requirements
+
+- Node.js
+- Docker
+
+### Running Locally
+
+#### 1. Install dependencies:
+
+```sh
+npm install
+```
+
+#### 2. Run the development server:
 
 ```sh
 # start opxs-web
 npm run dev
 ```
 
+#### 3. Start nginx using Docker:
+
 ```sh
 # start nginx
 docker compose up --build
 ```
 
-## References
-- https://github.com/tamasfe/aide/tree/master/examples/example-axum
+View the application at:
+https://localhost.omnius-labs.com/
+
+## Documentation
+
+- [Requirements](./docs/requirements/index.adoc)
+- [Specifications](./docs/specifications/index.adoc)
+- [FAQ](./docs/faq.md)
+
+## Links
+
+- Official Documentation: https://docs.omnius-labs.com/
+
+## Contributing
+
+If you would like to contribute to this project, please contact us through [Issues](https://github.com/omnius-labs/opxs-web-ts/issues) or [Pull Requests](https://github.com/omnius-labs/opxs-web-ts/pulls) on GitHub.
+
+## License
+
+This project is released under the MIT License. For more details, please refer to the [LICENSE](LICENSE.txt) file.
