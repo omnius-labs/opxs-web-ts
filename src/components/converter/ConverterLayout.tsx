@@ -9,8 +9,8 @@ export default function ConverterLayout() {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     acceptedFiles.forEach(async (file) => {
       const res = await api.post(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/image/convert/upload', {
-        source_filename: file.name,
-        target_image_format: 'png'
+        source_file_name: file.name,
+        target_image_type: 'png'
       });
 
       const reader = new FileReader();
