@@ -1,4 +1,9 @@
-# Opxs - Omnius Anything Service (Web)
+<p align="center">
+<img width="128" src="https://github.com/omnius-labs/opxs-web-ts/blob/main/public/logo.png?raw=true" alt="Opxs logo">
+</p>
+
+<h1 align="center">Opxs - Omnius Anything Service (Web)</h1>
+
 [![test](https://github.com/omnius-labs/opxs-web/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/omnius-labs/opxs-web/actions/workflows/test.yml)
 
 This repository contains the backend code for the Opxs platform, a suite of experimental web services written in TypeScript and Next.js.
