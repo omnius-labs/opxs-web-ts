@@ -53,12 +53,6 @@ docker compose up --build
 View the application at:
 https://localhost.omnius-labs.com/
 
-## Documentation
-
-- [Requirements](./docs/requirements/index.adoc)
-- [Specifications](./docs/specifications/index.adoc)
-- [FAQ](./docs/faq.md)
-
 ## Links
 
 - Official Documentation: https://docs.omnius-labs.com/
