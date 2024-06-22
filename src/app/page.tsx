@@ -4,7 +4,7 @@ import Header from '@/components/shared/Header';
 
 export default function Home() {
   return (
-    <main className="bg-slate-900">
+    <main className="">
       <Header />
     </main>
   );
