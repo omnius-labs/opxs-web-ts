@@ -13,19 +13,14 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - nginx_certs:/etc/ssl/certs/nginx:ro,cached
-    depends_on:
-      certs:
-        condition: service_completed_successfully
+      - ./certs:/etc/ssl/certs/nginx:ro,cached
 
   certs:
     build:
       context: .
       dockerfile: ./Dockerfile.certs
-    environment:
-      DOMAIN: localhost.omnius-labs.com
+    command: mkcert -key-file key.pem -cert-file cert.pem omnius-labs.com *.omnius-labs.com
     volumes:
-      - nginx_certs:/app:delegated
-
-volumes:
-  nginx_certs:
+      - ./certs:/app
+    profiles:
+      - certs

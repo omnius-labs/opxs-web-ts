@@ -10,8 +10,8 @@ server {
 
     charset utf8;
 
-    ssl_certificate /etc/ssl/certs/nginx/signed.crt;
-    ssl_certificate_key /etc/ssl/certs/nginx/domain.key;
+    ssl_certificate /etc/ssl/certs/nginx/cert.pem;
+    ssl_certificate_key /etc/ssl/certs/nginx/key.pem;
 
     location / {
         proxy_pass ${NGINX_PROXY_OPXS_WEB};

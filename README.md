@@ -46,6 +46,8 @@ npm run dev
 #### 3. Start nginx using Docker:
 
 ```sh
+# create certs
+docker compose run --build --rm certs
 # start nginx
 docker compose up --build
 ```

@@ -1,13 +1,11 @@
-FROM alpine:latest
+FROM ubuntu:latest
 
 WORKDIR /app
 
-RUN apk update && \
-    apk add openssl
+RUN apt-get update && apt-get install -y \
+    curl \
+    libnss3-tools
 
-CMD openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
-    -keyout domain.key \
-    -out signed.crt \
-    -subj "/CN=${DOMAIN}" \
-    -addext "subjectAltName=DNS:${DOMAIN}" \
-    -addext "extendedKeyUsage=serverAuth"
+RUN curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" \
+    && chmod +x mkcert-v*-linux-amd64 \
+    && cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
