@@ -10,8 +10,7 @@ This repository contains the backend code for the Opxs platform, a suite of expe
 
 ### Backend
 
-The backend for this project is developed in Rust and can be found here:
-https://github.com/omnius-labs/opxs-apps-rs
+The backend for this project can be found here: https://github.com/omnius-labs/opxs-apps-rs
 
 ## Features
 
