@@ -8,9 +8,7 @@
 
 This repository contains the backend code for the Opxs platform, a suite of experimental web services written in TypeScript and Next.js.
 
-### Backend
-
-The backend for this project can be found here: https://github.com/omnius-labs/opxs-apps-rs
+- Backend: https://github.com/omnius-labs/opxs-apps-rs
 
 ## Features
 
