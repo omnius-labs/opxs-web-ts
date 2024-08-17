@@ -1,6 +1,6 @@
 'use client';
 
-import api from '@/lib/api';
+import apiClient from '@/libs/apiClient';
 import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
 
@@ -11,7 +11,7 @@ export default function Page() {
     const code = searchParams.get('code');
     const redirectUri = location.origin + '/auth/register/oauth2/google';
 
-    const res = await api.post('/api/v1/auth/google/register', {
+    const res = await apiClient.post('/api/v1/auth/google/register', {
       code: code,
       redirect_uri: redirectUri
     });

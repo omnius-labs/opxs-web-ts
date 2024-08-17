@@ -1,6 +1,6 @@
 'use client';
 
-import api from '@/lib/api';
+import api from '@/lib/api/HttpClient';
 import { useAsync } from 'react-use';
 
 type User = {

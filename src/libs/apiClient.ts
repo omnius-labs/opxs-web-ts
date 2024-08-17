@@ -2,16 +2,16 @@
 
 import axios from 'axios';
 
-class HttpClientProvider {
-  private http;
+class ApiClientProvider {
+  private apiClient;
 
   constructor() {
-    this.http = axios.create({
+    this.apiClient = axios.create({
       timeout: 30000,
       withCredentials: true // Cookie を送信するために必要
     });
 
-    this.http.interceptors.request.use(
+    this.apiClient.interceptors.request.use(
       (config) => {
         const token = localStorage.getItem('accessToken');
         if (token) {
@@ -24,18 +24,18 @@ class HttpClientProvider {
       }
     );
 
-    this.http.interceptors.response.use(
+    this.apiClient.interceptors.response.use(
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
 
         // access token が切れた場合、refresh token を使用して再度トークンを取得
-        if (error.response.status === 401 && !originalRequest._retry) {
+        if (error.response?.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
 
           // access token を更新
           await this.refreshToken();
-          return this.http(originalRequest);
+          return this.apiClient(originalRequest);
         }
 
         return Promise.reject(error);
@@ -46,7 +46,7 @@ class HttpClientProvider {
   // access token が期限切れになる前に、refresh token を使用して更新
   private async refreshToken() {
     try {
-      const res = await this.http.post('/api/v1/auth/token/refresh', {
+      const res = await this.apiClient.post('/api/v1/auth/token/refresh', {
         refresh_token: localStorage.getItem('refreshToken')
       });
 
@@ -60,9 +60,9 @@ class HttpClientProvider {
   }
 
   instance() {
-    return this.http;
+    return this.apiClient;
   }
 }
 
-const provider = new HttpClientProvider();
+const provider = new ApiClientProvider();
 export default provider.instance();

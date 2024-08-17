@@ -1,6 +1,6 @@
 'use client';
 
-import api from '@/lib/api';
+import apiClient from '@/libs/apiClient';
 import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
 
@@ -10,7 +10,7 @@ export default function Page() {
   const state = useAsync(async () => {
     const token = searchParams.get('token');
 
-    const res = await api.post('/api/v1/auth/email/confirm', {
+    const res = await apiClient.post('/api/v1/auth/email/confirm', {
       token: token
     });
 
