@@ -1,6 +1,6 @@
 'use client';
 
-import api from '@/lib/api/HttpClient';
+import apiClient from '@/libs/apiClient';
 import { useAsync } from 'react-use';
 
 type User = {
@@ -11,7 +11,7 @@ type User = {
 };
 
 async function me(): Promise<User> {
-  const res = await api.get(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/auth/me');
+  const res = await apiClient.get(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/auth/me');
   return res.data as User;
 }
 

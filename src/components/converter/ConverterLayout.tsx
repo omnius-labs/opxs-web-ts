@@ -1,6 +1,6 @@
 'use client';
 
-import api from '@/lib/api/HttpClient';
+import apiClient from '@/libs/apiClient';
 import axios from 'axios';
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -8,7 +8,7 @@ import { useDropzone } from 'react-dropzone';
 export default function ConverterLayout() {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     acceptedFiles.forEach(async (file) => {
-      const res = await api.post(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/image/convert/upload', {
+      const res = await apiClient.post(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/image/convert/upload', {
         source_file_name: file.name,
         target_image_type: 'png'
       });
@@ -25,7 +25,7 @@ export default function ConverterLayout() {
         await s3.put(res.data.upload_uri, binaryStr);
 
         for (let i = 0; i < 1000; i++) {
-          const res2 = await api.get(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/image/convert/status', {
+          const res2 = await apiClient.get(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/image/convert/status', {
             params: {
               job_id: res.data.job_id
             }
