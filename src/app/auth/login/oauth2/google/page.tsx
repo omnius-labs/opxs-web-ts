@@ -1,8 +1,9 @@
 'use client';
 
-import apiClient from '@/libs/apiClient';
 import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
+
+import { apiClient } from '@/shared/libs';
 
 export default function Page() {
   const searchParams = useSearchParams();

@@ -1,14 +1,12 @@
 'use client';
 
-import apiClient from '@/libs/apiClient';
+import { apiClient } from '@/shared/libs';
+import { AuthToken } from '../types';
 
-export async function loginEmail(email: string, password: string): Promise<void> {
-  try {
-    await apiClient.post(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/auth/email/login', {
-      email: email,
-      password: password
-    });
-  } catch (error) {
-    console.error('Error:', error);
-  }
+export async function loginEmail(email: string, password: string): Promise<AuthToken> {
+  const res = await apiClient.post(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/auth/email/login', {
+    email: email,
+    password: password
+  });
+  return res.data;
 }

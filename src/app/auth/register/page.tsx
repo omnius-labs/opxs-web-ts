@@ -1,17 +1,45 @@
 'use client';
 
-import { registerEmail } from '@/features/auth/api/registerEmail';
-import apiClient from '@/libs/apiClient';
+import { Button, Toast } from 'flowbite-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { HiX } from 'react-icons/hi';
+
+import { registerEmail } from '@/features/auth/api';
+import { apiClient } from '@/shared/libs';
+import axios from 'axios';
 
 export default function Page() {
+  const router = useRouter();
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
   // Email
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleSignUpWithEmail = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    registerEmail(name, email, password);
+
+    try {
+      registerEmail(name, email, password);
+
+      const baseUrl = '/auth/register/email/send';
+      const params = new URLSearchParams();
+      params.append('email', email);
+      const url = `${baseUrl}?${params.toString()}`;
+      router.push(url);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.error_code || 'An error occurred';
+        console.error('Error:', errorMessage);
+        setToastMessage(errorMessage); // Assuming you have a state to set the toast message
+      } else {
+        console.error('Error:', error);
+        setToastMessage('An unexpected error occurred');
+      }
+      setShowToast(true);
+    }
   };
 
   // Google
@@ -20,27 +48,41 @@ export default function Page() {
     const nonce = res.data.value;
 
     const baseUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-    const clientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID;
+    const clientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID || '';
     const responseType = 'code';
     const scope = 'openid email profile';
     const redirectUri = location.origin + '/auth/register/oauth2/google';
 
-    const url = `${baseUrl}?client_id=${clientId}&response_type=${responseType}&scope=${scope}&redirect_uri=${redirectUri}&nonce=${nonce}`;
-    const encodedUrl = encodeURI(url);
-    location.replace(encodedUrl);
+    const params = new URLSearchParams();
+    params.append('client_id', clientId);
+    params.append('response_type', responseType);
+    params.append('scope', scope);
+    params.append('redirect_uri', redirectUri);
+    params.append('nonce', nonce);
+    const url = `${baseUrl}?${params.toString()}`;
+    location.replace(url);
   };
 
   return (
     <main>
+      {showToast && (
+        <div className="fixed bottom-0 left-0 m-4">
+          <Toast>
+            <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500 dark:bg-red-800 dark:text-red-200">
+              <HiX className="h-5 w-5" />
+            </div>
+            <div className="ml-3 text-sm font-normal">{toastMessage}</div>
+            <Toast.Toggle onDismiss={() => setShowToast(false)} />
+          </Toast>
+        </div>
+      )}
       <div className="flex justify-center items-center h-screen w-screen bg-gray-900">
         <div className="w-96">
           <div className="flex-col flex justify-center items-center">
-            <h1 className="text-white mb-6 text-4xl font-bold">Sign up</h1>
-            <div className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-lg px-5 py-2.5">
-              <button className="w-full" onClick={handleSignUpWithGoogle}>
-                Sign up with Google
-              </button>
-            </div>
+            <h1 className="text-white mb-6 text-4xl font-bold">SignUp</h1>
+            <Button className="w-full" size="lg" onClick={handleSignUpWithGoogle}>
+              SignUp with Google
+            </Button>
           </div>
 
           <div className="relative flex py-5 items-center">
@@ -51,7 +93,7 @@ export default function Page() {
 
           <div>
             <div className="flex-col flex justify-center items-center">
-              <h2 className="text-white mb-6 text-2xl font-bold">EMail Sign up</h2>
+              <h2 className="text-white mb-6 text-2xl font-bold">EMail SignUp</h2>
             </div>
             <form onSubmit={handleSignUpWithEmail}>
               <div className="mb-6">
@@ -61,7 +103,8 @@ export default function Page() {
                 <input
                   type="name"
                   id="name"
-                  className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  minLength={2}
+                  className="text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border border-gray-600 placeholder-gray-400 text-white"
                   placeholder=""
                   onChange={(e) => setName(e.target.value)}
                   required
@@ -74,7 +117,8 @@ export default function Page() {
                 <input
                   type="email"
                   id="email"
-                  className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  pattern=".+\.[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]"
+                  className="text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border border-gray-600 placeholder-gray-400 text-white"
                   placeholder=""
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -87,17 +131,15 @@ export default function Page() {
                 <input
                   type="password"
                   id="password"
-                  className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  minLength={8}
+                  className="text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border border-gray-600 placeholder-gray-400 text-white"
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
-
-              <div className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-lg px-5 py-2.5">
-                <button className="w-full" type="submit">
-                  Submit
-                </button>
-              </div>
+              <Button className="w-full" size="lg" type="submit">
+                Submit
+              </Button>
             </form>
           </div>
         </div>

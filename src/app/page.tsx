@@ -1,10 +1,10 @@
 'use client';
 
-import Header from '@/components/shared/Header';
+import { Header } from '@/shared/components';
 
 export default function Home() {
   return (
-    <main className="">
+    <main>
       <Header />
     </main>
   );

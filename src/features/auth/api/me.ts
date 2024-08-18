@@ -1,14 +1,9 @@
 'use client';
 
-import apiClient from '@/libs/apiClient';
+import { apiClient } from '@/shared/libs';
 import { User } from '../types';
 
-export async function me(): Promise<User | null> {
-  try {
-    const response = await apiClient.get('/api/v1/auth/me');
-    return await response.data;
-  } catch (error) {
-    console.error('Error:', error);
-    return null;
-  }
+export async function me(): Promise<User> {
+  const res = await apiClient.get('/api/v1/auth/me');
+  return await res.data;
 }

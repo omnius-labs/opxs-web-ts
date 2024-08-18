@@ -1,6 +1,6 @@
 'use client';
 
-import apiClient from '@/libs/apiClient';
+import { apiClient } from '@/shared/libs';
 import axios from 'axios';
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';

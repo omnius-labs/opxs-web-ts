@@ -65,4 +65,4 @@ class ApiClientProvider {
 }
 
 const provider = new ApiClientProvider();
-export default provider.instance();
+export const apiClient = provider.instance();

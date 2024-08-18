@@ -8,15 +8,17 @@ export const useUser = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        if (localStorage.getItem('refreshToken') == null || localStorage.getItem('accessToken') == null) {
+          return null;
+        }
         const data = await me();
         setUser(data);
       } catch (error) {
-        console.error('Error:', error);
         return null;
       }
     };
     fetchUser();
   });
 
-  return { user };
+  return { user, setUser };
 };

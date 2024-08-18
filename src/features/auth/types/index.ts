@@ -7,6 +7,11 @@ export interface User {
   id: string;
   name: string;
   role: UserRole;
-  createdAt: Date;
-  updatedAt: Date;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface AuthToken {
+  access_token: string;
+  refresh_token: string;
 }
