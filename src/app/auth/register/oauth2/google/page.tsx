@@ -1,27 +1,20 @@
 'use client';
 
-import { apiClient } from '@/shared/libs';
+import { registerGoogle } from '@/features/auth/api';
+import { useAuthToken } from '@/features/auth/contexts';
 import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
 
 export default function Page() {
+  const { authToken, setAuthToken } = useAuthToken();
   const searchParams = useSearchParams();
 
   const state = useAsync(async () => {
-    const code = searchParams.get('code');
+    const code = searchParams.get('code') || '';
     const redirectUri = location.origin + '/auth/register/oauth2/google';
 
-    const res = await apiClient.post('/api/v1/auth/google/register', {
-      code: code,
-      redirect_uri: redirectUri
-    });
-
-    localStorage.setItem('refreshToken', res.data.refresh_token);
-    localStorage.setItem('accessToken', res.data.access_token);
-
+    setAuthToken(await registerGoogle(code, redirectUri));
     location.replace(location.origin);
-
-    return res;
   }, []);
 
   return (

@@ -1,25 +1,19 @@
 'use client';
 
-import { apiClient } from '@/shared/libs';
+import { loginEmailConfirm } from '@/features/auth/api';
+import { useAuthToken } from '@/features/auth/contexts';
 import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
 
 export default function Page() {
+  const { authToken, setAuthToken } = useAuthToken();
   const searchParams = useSearchParams();
 
   const state = useAsync(async () => {
-    const token = searchParams.get('token');
+    const token = searchParams.get('token') || '';
 
-    const res = await apiClient.post('/api/v1/auth/email/confirm', {
-      token: token
-    });
-
-    localStorage.setItem('refreshToken', res.data.refresh_token);
-    localStorage.setItem('accessToken', res.data.access_token);
-
+    setAuthToken(await loginEmailConfirm(token));
     location.replace(location.origin);
-
-    return res;
   }, []);
 
   return (

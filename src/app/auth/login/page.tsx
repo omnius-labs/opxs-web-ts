@@ -5,24 +5,26 @@ import { useState } from 'react';
 import { HiX } from 'react-icons/hi';
 
 import { loginEmail } from '@/features/auth/api';
+import { useAuthToken } from '@/features/auth/contexts';
 import { apiClient } from '@/shared/libs';
 import axios from 'axios';
 
 export default function Page() {
+  const { authToken, setAuthToken } = useAuthToken();
+
+  // Toast
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
   // Email
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const handleLogInWithEmail = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const res = await loginEmail(email, password);
-
-      localStorage.setItem('refreshToken', res.refresh_token);
-      localStorage.setItem('accessToken', res.access_token);
+      setAuthToken(await loginEmail(email, password));
       location.replace(location.origin);
     } catch (error) {
       if (axios.isAxiosError(error)) {

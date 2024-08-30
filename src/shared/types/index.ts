@@ -1,23 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
 
-export interface UserContextType {
-  user: User | null;
-  setUser: Dispatch<SetStateAction<User | null>>;
-}
-
-export interface User {
-  id: string;
-  name: string;
-  role: UserRole;
-  created_at: Date;
-  updated_at: Date;
-}
-
-export enum UserRole {
-  Admin = 'Admin',
-  User = 'User'
-}
-
 export interface AuthTokenContextType {
   authToken: AuthToken | null;
   setAuthToken: Dispatch<SetStateAction<AuthToken | null>>;

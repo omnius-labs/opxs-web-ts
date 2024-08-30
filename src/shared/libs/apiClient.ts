@@ -13,9 +13,10 @@ class ApiClientProvider {
 
     this.apiClient.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem('accessToken');
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+        const v = localStorage.getItem('auth_token');
+        const authToken = v === null ? null : JSON.parse(v);
+        if (authToken) {
+          config.headers.Authorization = `Bearer ${authToken.access_token}`;
         }
         return config;
       },
@@ -34,7 +35,24 @@ class ApiClientProvider {
           originalRequest._retry = true;
 
           // access token を更新
-          await this.refreshToken();
+          try {
+            const v = localStorage.getItem('auth_token');
+            const authToken = v === null ? null : JSON.parse(v);
+            const res = await this.apiClient.post('/api/v1/auth/token/refresh', {
+              refresh_token: authToken?.refresh_token
+            });
+
+            if (res.status === 200) {
+              localStorage.setItem('auth_token', JSON.stringify(res.data));
+            } else {
+              throw new Error('Refresh token failed');
+            }
+          } catch (error) {
+            console.log(error);
+            localStorage.removeItem('auth_token');
+            throw error;
+          }
+
           return this.apiClient(originalRequest);
         }
 
@@ -43,26 +61,11 @@ class ApiClientProvider {
     );
   }
 
-  // access token が期限切れになる前に、refresh token を使用して更新
-  private async refreshToken() {
-    try {
-      const res = await this.apiClient.post('/api/v1/auth/token/refresh', {
-        refresh_token: localStorage.getItem('refreshToken')
-      });
-
-      if (res.status === 200) {
-        localStorage.setItem('accessToken', res.data.access_token);
-      }
-    } catch (error) {
-      console.log(error);
-      throw new Error('Refresh token failed');
-    }
-  }
-
   instance() {
     return this.apiClient;
   }
 }
 
 const provider = new ApiClientProvider();
+
 export const apiClient = provider.instance();

@@ -1,5 +1,6 @@
 'use client';
 
+import { AuthTokenProvider, UserProvider } from '@/features/auth/contexts';
 import { Suspense } from 'react';
 import './globals.css';
 
@@ -8,7 +9,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html>
       <head></head>
       <body className="bg-slate-900">
-        <Suspense>{children}</Suspense>
+        <AuthTokenProvider>
+          <UserProvider>
+            <Suspense>{children}</Suspense>
+          </UserProvider>
+        </AuthTokenProvider>
       </body>
     </html>
   );

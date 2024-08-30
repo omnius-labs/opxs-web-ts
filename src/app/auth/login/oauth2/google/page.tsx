@@ -3,26 +3,19 @@
 import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
 
-import { apiClient } from '@/shared/libs';
+import { loginGoogle } from '@/features/auth/api';
+import { useAuthToken } from '@/features/auth/contexts';
 
 export default function Page() {
+  const { authToken, setAuthToken } = useAuthToken();
   const searchParams = useSearchParams();
 
   const state = useAsync(async () => {
-    const code = searchParams.get('code');
+    const code = searchParams.get('code') || '';
     const redirectUri = location.origin + '/auth/login/oauth2/google';
 
-    const res = await apiClient.post('/api/v1/auth/google/login', {
-      code: code,
-      redirect_uri: redirectUri
-    });
-
-    localStorage.setItem('refreshToken', res.data.refresh_token);
-    localStorage.setItem('accessToken', res.data.access_token);
-
+    setAuthToken(await loginGoogle(code, redirectUri));
     location.replace(location.origin);
-
-    return res;
   }, []);
 
   return (
