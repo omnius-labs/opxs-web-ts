@@ -1,8 +1,9 @@
 'use client';
 
 import { logout, me } from '@/features/auth/api';
-import { useAuthToken, useUser } from '@/features/auth/contexts';
+import { useUser } from '@/features/auth/contexts';
 import { Header } from '@/shared/components';
+import { tokenStore } from '@/shared/libs/tokenStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -10,17 +11,18 @@ export default function Home() {
   const router = useRouter();
 
   const { user, setUser } = useUser();
-  const { authToken, setAuthToken } = useAuthToken();
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (authToken && !user) {
-        const v = await me();
-        setUser(v);
+      if (user) return;
+      try {
+        setUser(await me());
+      } catch (e) {
+        console.error(e);
       }
     };
     fetchUser();
-  }, [authToken]);
+  }, []);
 
   const headerProps = {
     register: () => {
@@ -36,7 +38,7 @@ export default function Home() {
         console.error(e);
       }
       setUser(null);
-      setAuthToken(null);
+      tokenStore.removeToken();
       router.push('/');
     }
   };

@@ -1,13 +1,12 @@
 'use client';
 
+import axios from 'axios';
 import { Button, Toast } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { HiX } from 'react-icons/hi';
 
-import { registerEmail } from '@/features/auth/api';
-import { apiClient } from '@/shared/libs';
-import axios from 'axios';
+import { nonceGoogle, registerEmail } from '@/features/auth/api';
 
 export default function Page() {
   const router = useRouter();
@@ -20,6 +19,7 @@ export default function Page() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const handleSignUpWithEmail = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -46,14 +46,13 @@ export default function Page() {
 
   // Google
   const handleSignUpWithGoogle = async () => {
-    const res = await apiClient.get('/api/v1/auth/google/nonce');
-    const nonce = res.data.value;
+    const nonce = await nonceGoogle();
 
     const baseUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID || '';
     const responseType = 'code';
     const scope = 'openid email profile';
-    const redirectUri = location.origin + '/auth/register/oauth2/google';
+    const redirectUri = origin + '/auth/register/oauth2/google';
 
     const params = new URLSearchParams();
     params.append('client_id', clientId);
@@ -81,9 +80,9 @@ export default function Page() {
       <div className="flex justify-center items-center h-screen w-screen bg-gray-900">
         <div className="w-96">
           <div className="flex-col flex justify-center items-center">
-            <h1 className="text-white mb-6 text-4xl font-bold">SignUp</h1>
+            <h1 className="text-white mb-6 text-4xl font-bold">Sign up</h1>
             <Button className="w-full" size="lg" onClick={handleSignUpWithGoogle}>
-              SignUp with Google
+              Sign up with Google
             </Button>
           </div>
 
@@ -95,7 +94,7 @@ export default function Page() {
 
           <div>
             <div className="flex-col flex justify-center items-center">
-              <h2 className="text-white mb-6 text-2xl font-bold">EMail SignUp</h2>
+              <h2 className="text-white mb-6 text-2xl font-bold">EMail Sign up</h2>
             </div>
             <form onSubmit={handleSignUpWithEmail}>
               <div className="mb-6">
@@ -119,7 +118,6 @@ export default function Page() {
                 <input
                   type="email"
                   id="email"
-                  pattern=".+\.[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]"
                   className="text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border border-gray-600 placeholder-gray-400 text-white"
                   placeholder=""
                   onChange={(e) => setEmail(e.target.value)}

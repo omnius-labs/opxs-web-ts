@@ -13,8 +13,7 @@ class ApiClientProvider {
 
     this.apiClient.interceptors.request.use(
       (config) => {
-        const v = localStorage.getItem('auth_token');
-        const authToken = v === null ? null : JSON.parse(v);
+        const authToken = JSON.parse(localStorage.getItem('auth_token') || 'null');
         if (authToken) {
           config.headers.Authorization = `Bearer ${authToken.access_token}`;
         }
@@ -36,8 +35,7 @@ class ApiClientProvider {
 
           // access token を更新
           try {
-            const v = localStorage.getItem('auth_token');
-            const authToken = v === null ? null : JSON.parse(v);
+            const authToken = JSON.parse(localStorage.getItem('auth_token') || 'null');
             const res = await this.apiClient.post('/api/v1/auth/token/refresh', {
               refresh_token: authToken?.refresh_token
             });
