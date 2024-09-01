@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { HiX } from 'react-icons/hi';
 
 import { loginEmail, nonceGoogle } from '@/features/auth/api';
-import { tokenStore } from '@/shared/libs/tokenStore';
+import { tokenStore } from '@/features/shared/libs/tokenStore';
 
 export default function Page() {
   const origin = process.env.NEXT_PUBLIC_API_ORIGIN || '/';

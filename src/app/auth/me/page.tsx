@@ -1,6 +1,6 @@
 'use client';
 
-import { apiClient } from '@/shared/libs';
+import { apiClient } from '@/features/shared/libs';
 import { useAsync } from 'react-use';
 
 type User = {

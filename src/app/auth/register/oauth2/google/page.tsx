@@ -5,8 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
 
 import { registerGoogle } from '@/features/auth/api';
-import { tokenStore } from '@/shared/libs/tokenStore';
-import { ErrorCode, toErrorCode } from '@/shared/types';
+import { tokenStore } from '@/features/shared/libs/tokenStore';
+import { ErrorCode, toErrorCode } from '@/features/shared/types';
 
 export default function Page() {
   const origin = process.env.NEXT_PUBLIC_API_ORIGIN || '/';

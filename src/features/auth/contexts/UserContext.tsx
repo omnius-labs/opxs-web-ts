@@ -1,6 +1,8 @@
 'use client';
 
+import { tokenStore } from '@/features/shared/libs/tokenStore';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { me } from '../api';
 import { User, UserContextType } from '../types';
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -8,10 +10,35 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    setUser(storedUser ? JSON.parse(storedUser) : null);
-  }, []);
+  const initUser = async () => {
+    const authToken = tokenStore.getToken();
+    if (!authToken) {
+      setUser(null);
+      return;
+    }
+
+    const currentDate: Date = new Date();
+    if (authToken.refresh_token_expires_at > currentDate) {
+      tokenStore.removeToken();
+      setUser(null);
+      return;
+    }
+
+    var storedUser = JSON.parse(localStorage.getItem('user') || 'null');
+
+    if (!storedUser) {
+      try {
+        storedUser = await me();
+      } catch (error) {
+        console.error('Error:', error);
+        tokenStore.removeToken();
+        setUser(null);
+        return;
+      }
+    }
+
+    setUser(storedUser);
+  };
 
   useEffect(() => {
     if (!user) {
@@ -21,7 +48,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [user]);
 
-  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, setUser, initUser }}>{children}</UserContext.Provider>;
 };
 
 export const useUser = (): UserContextType => {
