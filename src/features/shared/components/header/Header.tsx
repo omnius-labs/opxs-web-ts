@@ -1,6 +1,7 @@
 'use client';
 
 import { Avatar, Button, Dropdown, MegaMenu, Navbar } from 'flowbite-react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { useUser } from '@/features/auth/contexts';
@@ -37,7 +38,7 @@ export function Header() {
   return (
     <MegaMenu>
       <Navbar.Brand href="/">
-        <img src="/logo.png" className="mr-3 h-6 sm:h-9" alt="Opxs Logo" />
+        <Image src="/logo.png" height={32} width={32} className="mr-3 h-6 sm:h-9" alt="Opxs Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Opxs</span>
       </Navbar.Brand>
       <Navbar.Toggle className="ml-2" />

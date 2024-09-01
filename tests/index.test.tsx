@@ -1,4 +1,5 @@
-import { render } from '@testing-library/react';
+import { UserProvider } from '@/features/auth/contexts';
+import { act, render } from '@testing-library/react';
 import Home from '../src/app/page';
 
 jest.mock('next/navigation', () => ({
@@ -6,7 +7,13 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('Home', () => {
-  it('renders a heading', () => {
-    render(<Home />);
+  it('renders a heading', async () => {
+    await act(async () => {
+      render(
+        <UserProvider>
+          <Home />
+        </UserProvider>
+      );
+    });
   });
 });
