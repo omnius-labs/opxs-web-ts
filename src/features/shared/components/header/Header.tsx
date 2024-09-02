@@ -1,7 +1,6 @@
 'use client';
 
 import { Avatar, Button, Dropdown, MegaMenu, Navbar } from 'flowbite-react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { useUser } from '@/features/auth/contexts';
@@ -38,7 +37,7 @@ export function Header() {
   return (
     <MegaMenu>
       <Navbar.Brand href="/">
-        <Image src="/logo.png" height={32} width={32} className="mr-3 h-6 sm:h-9" alt="Opxs Logo" />
+        <img src="/logo.png" className="mr-3 h-6 sm:h-9" alt="Opxs Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Opxs</span>
       </Navbar.Brand>
       <Navbar.Toggle className="ml-2" />
@@ -82,7 +81,7 @@ export function Header() {
         )}
       </div>
       <MegaMenu.Dropdown className="hidden">
-        <ul className="mx-auto mt-6 grid max-w-screen-xl border-y border-gray-200 px-4 py-5 sm:grid-cols-2 md:grid-cols-3 md:px-6">
+        <ul className="mx-auto mt-6 grid w-screen border-y border-gray-200 px-4 py-5 sm:grid-cols-2 md:grid-cols-3 md:px-6">
           <li>
             <a
               href="/services/image-converter"
