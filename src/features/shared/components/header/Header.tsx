@@ -2,6 +2,7 @@
 
 import { Avatar, Button, Dropdown, MegaMenu, Navbar } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
+import { HiChevronDown } from 'react-icons/hi';
 
 import { useUser } from '@/features/auth/contexts';
 import { useAsync, useLocation } from 'react-use';
@@ -40,16 +41,17 @@ export function Header() {
         <img src="/logo.png" className="mr-3 h-6 sm:h-9" alt="Opxs Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Opxs</span>
       </Navbar.Brand>
-      <Navbar.Toggle className="ml-2" />
+      <Navbar.Toggle />
       {state.loading ? (
         <></>
       ) : !user ? (
         <></>
       ) : (
-        <Navbar.Collapse className="grow mx-10">
-          <Navbar.Link>
-            <MegaMenu.DropdownToggle>Services</MegaMenu.DropdownToggle>
-          </Navbar.Link>
+        <Navbar.Collapse className="mx-10">
+          <MegaMenu.DropdownToggle>
+            Services
+            <HiChevronDown className="ml-2" />
+          </MegaMenu.DropdownToggle>
           <Navbar.Link href="/about" active={location.pathname === '/about/'}>
             About
           </Navbar.Link>
