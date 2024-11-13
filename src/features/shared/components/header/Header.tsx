@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Button, Dropdown, MegaMenu, Navbar } from 'flowbite-react';
+import { Avatar, Button, DarkThemeToggle, Dropdown, MegaMenu, Navbar } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import { HiChevronDown } from 'react-icons/hi';
 
@@ -81,6 +81,7 @@ export function Header() {
             <Dropdown.Item onClick={logout}>Sign out</Dropdown.Item>
           </Dropdown>
         )}
+        <DarkThemeToggle />
       </div>
       <MegaMenu.Dropdown className="hidden">
         <ul className="mx-auto mt-6 grid w-screen border-y border-gray-200 px-4 py-5 sm:grid-cols-2 md:grid-cols-3 md:px-6">
@@ -90,7 +91,15 @@ export function Header() {
               className="block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               <div className="font-semibold">Image Converter</div>
-              <span className="text-sm text-gray-500 dark:text-gray-400">Convert images to different formats</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">Converts format of uploaded files.</span>
+            </a>
+          </li>
+          <li>
+            <a href="/services/file-analyzer" className="block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-700">
+              <div className="font-semibold">File Analyzer</div>
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Analyzes URL destination files and uploaded files.
+              </span>
             </a>
           </li>
         </ul>

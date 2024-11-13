@@ -1,7 +1,7 @@
 'use client';
 
 import { UserProvider } from '@/features/auth/contexts';
-import { ThemeModeScript } from 'flowbite-react';
+import { Flowbite, ThemeModeScript } from 'flowbite-react';
 import { Suspense } from 'react';
 import './globals.css';
 
@@ -11,10 +11,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <ThemeModeScript />
       </head>
-      <body>
-        <UserProvider>
-          <Suspense>{children}</Suspense>
-        </UserProvider>
+      <body className="bg-white dark:bg-gray-800">
+        <Flowbite>
+          <UserProvider>
+            <Suspense>{children}</Suspense>
+          </UserProvider>
+        </Flowbite>
       </body>
     </html>
   );
