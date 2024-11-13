@@ -73,7 +73,7 @@ export default function ConverterLayout() {
     //   </div>
     // </div>
 
-    <div className="flex flex-col justify-center">
+    (<div className="flex flex-col justify-center">
       <h1 className="text-4xl text-center text-green-600 m-8">画像コンバーター</h1>
       <div className="bg-white border border-gray-300 mx-8 shadow-md">
         <div className="overflow-y-auto max-h-96">
@@ -104,6 +104,6 @@ export default function ConverterLayout() {
           <button className="bg-red-500 text-white border-none w-32 py-2 cursor-pointer text-2xl">変換</button>
         </div>
       </div>
-    </div>
+    </div>)
   );
 }
