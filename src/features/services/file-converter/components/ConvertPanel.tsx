@@ -4,61 +4,63 @@ import { Button, Dropdown } from 'flowbite-react';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaFileImage } from 'react-icons/fa';
-import { toast } from 'react-toastify';
 
 import { Backoff, Path } from '@/shared/libs';
 import axios from 'axios';
 import { Api } from '../api';
 import { FileTypeConverter } from '../libs';
-import { AcceptedFile, FileConvertImageOutFileType, FileConvertJobStatus } from '../types';
+import { AcceptedFile, AcceptedFileStatus, FileConvertImageOutFileType, FileConvertJobStatus } from '../types';
 
 export function ConvertPanel() {
-  const httpClient = axios.create({
-    timeout: 30000
-  });
+  const httpClient = axios.create({ timeout: 30000 });
   const [acceptedFiles, setAcceptedFiles] = useState<AcceptedFile[]>([]);
 
+  const updateFile = (index: number, newFile: Partial<AcceptedFile>) => {
+    setAcceptedFiles((prevFiles) => {
+      const updatedFiles = [...prevFiles];
+      updatedFiles[index] = { ...updatedFiles[index], ...newFile };
+      return updatedFiles;
+    });
+  };
+
   const onDrop = useCallback((files: File[]) => {
-    if (files.length !== 1) {
-      toast.error('');
-      return;
-    }
-
-    const file = files[0];
-
-    const reader = new FileReader();
-    reader.onabort = () => console.log('file reading was aborted');
-    reader.onerror = () => console.log('file reading has failed');
-    reader.onload = async () => {
-      const v: AcceptedFile = {
-        filename: file.name,
-        content: reader.result as ArrayBuffer,
-        outType: FileConvertImageOutFileType.Png,
-        downloadUrl: null,
-        downloadFilename: null
+    for (const file of files) {
+      const reader = new FileReader();
+      reader.onabort = () => console.log('file reading was aborted');
+      reader.onerror = () => console.log('file reading has failed');
+      reader.onload = async () => {
+        const v: AcceptedFile = {
+          filename: file.name,
+          content: reader.result as ArrayBuffer,
+          outType: FileConvertImageOutFileType.Png,
+          status: AcceptedFileStatus.Pending,
+          result: null
+        };
+        setAcceptedFiles((prevFiles) => [...prevFiles, v]);
       };
-      setAcceptedFiles((prevFiles) => [...prevFiles, v]);
-    };
-    reader.readAsArrayBuffer(file);
+      reader.readAsArrayBuffer(file);
+    }
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const handleFileTypeChange = (index: number, newType: FileConvertImageOutFileType) => {
-    setAcceptedFiles((prevFiles) => {
-      const updatedFiles = [...prevFiles];
-      updatedFiles[index].outType = newType;
-      return updatedFiles;
-    });
+    updateFile(index, { outType: newType });
   };
 
-  const handleConvert = async (file: AcceptedFile) => {
+  const handleConvert = async (index: number) => {
+    const file = acceptedFiles[index];
+
+    updateFile(index, { status: AcceptedFileStatus.Processing });
+
+    // Upload先のURLを取得
     const inFilename = file.filename;
     const inType = FileTypeConverter.extensionToInFileType(Path.getExtension(inFilename));
     const outType = file.outType;
     const outFilename = Path.changeExtension(inFilename, FileTypeConverter.outFileTypeToExtension(outType));
     const { job_id, upload_url } = await Api.upload(inFilename, inType, outFilename, outType);
-    console.log(job_id, upload_url);
+
+    // ファイルをアップロード
     await httpClient.put(upload_url, file.content, {
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -66,33 +68,52 @@ export function ConvertPanel() {
       }
     });
 
-    const downloadUrl = await Backoff.exponentialBackoff(
-      async () => {
-        const { status, download_url } = await Api.status(job_id);
-        if (status !== FileConvertJobStatus.Completed) {
-          throw new Error('Status is not completed');
-        }
-        return download_url;
-      },
-      30,
-      1000
-    );
-    setAcceptedFiles((prevFiles) => {
-      const updatedFiles = [...prevFiles];
-      file.downloadUrl = downloadUrl;
-      file.downloadFilename = outFilename;
-      return updatedFiles;
-    });
+    try {
+      await Backoff.exponentialBackoff(
+        async () => {
+          const { status, download_url } = await Api.status(job_id);
+
+          if (
+            status === FileConvertJobStatus.Preparing ||
+            status === FileConvertJobStatus.Waiting ||
+            status === FileConvertJobStatus.Processing
+          ) {
+            return false;
+          }
+
+          if (status === FileConvertJobStatus.Completed && download_url !== null) {
+            updateFile(index, {
+              status: AcceptedFileStatus.Completed,
+              result: {
+                downloadUrl: download_url,
+                downloadFilename: outFilename
+              }
+            });
+            return true;
+          }
+
+          throw new Error('Failed to convert file. status: ' + status);
+        },
+        30,
+        500,
+        5000
+      );
+    } catch (e) {
+      updateFile(index, { status: AcceptedFileStatus.Failed });
+    }
   };
 
-  const handleDownload = async (file: AcceptedFile) => {
-    if (file.downloadUrl === null || file.downloadFilename === null) {
+  const handleDownload = async (index: number) => {
+    const file = acceptedFiles[index];
+
+    if (file.result === null) {
       return;
     }
+
     console.log(file);
     const link = document.createElement('a');
-    link.href = file.downloadUrl;
-    link.download = file.downloadFilename;
+    link.href = file.result.downloadUrl;
+    link.download = file.result.downloadFilename;
     link.click();
   };
 
@@ -133,24 +154,36 @@ export function ConvertPanel() {
                 <div key={index} className="flex items-center border-b border-gray-300 p-4 space-x-4">
                   <FaFileImage />
                   <div className="text-xl grow">{file.filename}</div>
-                  <Dropdown label={file.outType}>
-                    <Dropdown.Item onClick={() => handleFileTypeChange(index, FileConvertImageOutFileType.Png)}>
-                      PNG
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleFileTypeChange(index, FileConvertImageOutFileType.Jpg)}>
-                      JPEG
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleFileTypeChange(index, FileConvertImageOutFileType.Avif)}>
-                      AVIF
-                    </Dropdown.Item>
-                  </Dropdown>
-                  {file.downloadUrl !== null && file.downloadFilename !== null ? (
-                    <Button size="md" color="green" onClick={() => handleDownload(file)}>
+                  {file.status === AcceptedFileStatus.Pending ? (
+                    <Dropdown label={file.outType}>
+                      <Dropdown.Item onClick={() => handleFileTypeChange(index, FileConvertImageOutFileType.Png)}>
+                        PNG
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleFileTypeChange(index, FileConvertImageOutFileType.Jpg)}>
+                        JPEG
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleFileTypeChange(index, FileConvertImageOutFileType.Avif)}>
+                        AVIF
+                      </Dropdown.Item>
+                    </Dropdown>
+                  ) : (
+                    <div className="text-xl">{file.outType}</div>
+                  )}
+                  {file.status === AcceptedFileStatus.Pending ? (
+                    <Button size="md" color="purple" onClick={() => handleConvert(index)}>
+                      Convert
+                    </Button>
+                  ) : file.status === AcceptedFileStatus.Completed ? (
+                    <Button size="md" color="green" onClick={() => handleDownload(index)}>
                       Download
                     </Button>
+                  ) : file.status === AcceptedFileStatus.Failed ? (
+                    <Button size="md" color="red" onClick={() => handleConvert(index)}>
+                      Retry
+                    </Button>
                   ) : (
-                    <Button size="md" color="purple" onClick={() => handleConvert(file)}>
-                      Convert
+                    <Button size="md" color="gray" disabled>
+                      Processing
                     </Button>
                   )}
                 </div>

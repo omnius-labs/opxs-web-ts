@@ -2,8 +2,20 @@ export interface AcceptedFile {
   filename: string;
   content: ArrayBuffer;
   outType: FileConvertImageOutFileType;
-  downloadUrl: string | null;
-  downloadFilename: string | null;
+  status: AcceptedFileStatus;
+  result: AcceptedFileConvertedResult | null;
+}
+
+export interface AcceptedFileConvertedResult {
+  downloadUrl: string;
+  downloadFilename: string;
+}
+
+export enum AcceptedFileStatus {
+  Pending = 'Pending',
+  Processing = 'Processing',
+  Completed = 'Completed',
+  Failed = 'Failed'
 }
 
 export enum FileConvertImageInFileType {
