@@ -50,7 +50,7 @@ docker compose up --build
 ```
 
 View the application at:
-https://localhost.omnius-labs.com/
+https://localhost.omnius-labs.com:1443/
 
 ## Links
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { loginEmailConfirm } from '@/features/auth/api';
-import { tokenStore } from '@/features/shared/libs/tokenStore';
+import { tokenStore } from '@/features/auth/libs/tokenStore';
 import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
 

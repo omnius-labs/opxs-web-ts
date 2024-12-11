@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import { HiChevronDown } from 'react-icons/hi';
 
 import { useUser } from '@/features/auth/contexts';
+import { tokenStore } from '@/features/auth/libs/tokenStore';
 import { useAsync, useLocation } from 'react-use';
-import { tokenStore } from '../../libs/tokenStore';
 
 export function Header() {
   const location = useLocation();
@@ -43,8 +43,6 @@ export function Header() {
       </Navbar.Brand>
       <Navbar.Toggle />
       {state.loading ? (
-        <></>
-      ) : !user ? (
         <></>
       ) : (
         <Navbar.Collapse className="mx-10">
@@ -86,20 +84,15 @@ export function Header() {
       <MegaMenu.Dropdown className="hidden">
         <ul className="mx-auto mt-6 grid w-screen border-y border-gray-200 px-4 py-5 sm:grid-cols-2 md:grid-cols-3 md:px-6">
           <li>
-            <a
-              href="/services/image-converter"
-              className="block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-700"
-            >
-              <div className="font-semibold">Image Converter</div>
-              <span className="text-sm text-gray-500 dark:text-gray-400">Converts format of uploaded files.</span>
+            <a href="/services/file-converter" className="block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-700">
+              <div className="font-semibold">File Converter</div>
+              <span className="text-sm text-gray-500 dark:text-gray-400">Converts uploaded files.</span>
             </a>
           </li>
           <li>
             <a href="/services/file-analyzer" className="block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-700">
               <div className="font-semibold">File Analyzer</div>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                Analyzes URL destination files and uploaded files.
-              </span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">Analyzes uploaded files.</span>
             </a>
           </li>
         </ul>

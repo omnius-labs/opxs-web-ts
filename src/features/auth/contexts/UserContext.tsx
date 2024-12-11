@@ -1,6 +1,6 @@
 'use client';
 
-import { tokenStore } from '@/features/shared/libs/tokenStore';
+import { tokenStore } from '@/features/auth/libs/tokenStore';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { me } from '../api';
 import { User, UserContextType } from '../types';

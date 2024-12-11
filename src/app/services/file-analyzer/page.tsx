@@ -4,7 +4,7 @@ import { Button } from 'flowbite-react';
 import { FaFileImage } from 'react-icons/fa';
 import { IoIosClose } from 'react-icons/io';
 
-import { Header } from '@/features/shared/components';
+import { Header } from '@/components/layouts';
 
 export default function Page() {
   return (

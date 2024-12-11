@@ -1,6 +1,6 @@
 'use client';
 
-import { AuthToken } from '../types';
+import { AuthToken } from '../../../shared/types/AuthToken';
 
 class TokenStore {
   private static storageKey: string = 'auth_token';

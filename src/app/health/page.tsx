@@ -1,7 +1,8 @@
 'use client';
 
-import { apiClient } from '@/features/shared/libs';
 import { useAsync } from 'react-use';
+
+import { apiClient } from '@/shared/libs';
 
 type HealthCondition = {
   git_semver: number;
