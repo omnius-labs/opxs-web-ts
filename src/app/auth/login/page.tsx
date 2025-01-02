@@ -5,7 +5,7 @@ import { Button, Toast } from 'flowbite-react';
 import { useState } from 'react';
 import { HiX } from 'react-icons/hi';
 
-import { loginEmail, nonceGoogle } from '@/features/auth/api';
+import { Api } from '@/features/auth/api';
 import { tokenStore } from '@/features/auth/libs/tokenStore';
 
 export default function Page() {
@@ -23,7 +23,7 @@ export default function Page() {
     event.preventDefault();
 
     try {
-      tokenStore.setToken(await loginEmail(email, password));
+      tokenStore.setToken(await Api.loginEmail(email, password));
       location.replace(origin);
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -40,7 +40,7 @@ export default function Page() {
 
   // Google
   const handleLogInWithGoogle = async () => {
-    const nonce = await nonceGoogle();
+    const nonce = await Api.nonceGoogle();
 
     const baseUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID || '';

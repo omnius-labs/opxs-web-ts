@@ -1,6 +1,6 @@
 'use client';
 
-import { loginEmailConfirm } from '@/features/auth/api';
+import { Api } from '@/features/auth/api';
 import { tokenStore } from '@/features/auth/libs/tokenStore';
 import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
@@ -11,7 +11,7 @@ export default function Page() {
   const state = useAsync(async () => {
     const token = searchParams.get('token') || '';
 
-    tokenStore.setToken(await loginEmailConfirm(token));
+    tokenStore.setToken(await Api.loginEmailConfirm(token));
     location.replace(location.origin);
   }, []);
 

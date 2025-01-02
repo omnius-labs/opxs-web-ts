@@ -2,7 +2,7 @@
 
 import { tokenStore } from '@/features/auth/libs/tokenStore';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { me } from '../api';
+import { Api } from '../api';
 import { User, UserContextType } from '../types';
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -28,7 +28,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     if (!storedUser) {
       try {
-        storedUser = await me();
+        storedUser = await Api.me();
       } catch (error) {
         console.error('Error:', error);
         tokenStore.removeToken();

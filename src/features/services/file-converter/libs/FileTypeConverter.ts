@@ -6,8 +6,6 @@ outFileTypeMap.set(FileConvertImageOutFileType.Jpg, 'jpg');
 outFileTypeMap.set(FileConvertImageOutFileType.Png, 'png');
 outFileTypeMap.set(FileConvertImageOutFileType.WebP, 'webp');
 outFileTypeMap.set(FileConvertImageOutFileType.Bmp, 'bmp');
-outFileTypeMap.set(FileConvertImageOutFileType.Heif, 'heif');
-outFileTypeMap.set(FileConvertImageOutFileType.Heic, 'heic');
 outFileTypeMap.set(FileConvertImageOutFileType.Avif, 'avif');
 outFileTypeMap.set(FileConvertImageOutFileType.Svg, 'svg');
 

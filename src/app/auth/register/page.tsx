@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { HiX } from 'react-icons/hi';
 
-import { nonceGoogle, registerEmail } from '@/features/auth/api';
+import { Api } from '@/features/auth/api';
 
 export default function Page() {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function Page() {
     event.preventDefault();
 
     try {
-      registerEmail(name, email, password);
+      Api.registerEmail(name, email, password);
 
       const baseUrl = '/auth/register/email/send';
       const params = new URLSearchParams();
@@ -46,7 +46,7 @@ export default function Page() {
 
   // Google
   const handleSignUpWithGoogle = async () => {
-    const nonce = await nonceGoogle();
+    const nonce = await Api.nonceGoogle();
 
     const baseUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID || '';

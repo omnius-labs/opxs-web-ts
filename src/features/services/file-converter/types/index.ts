@@ -37,8 +37,6 @@ export enum FileConvertImageOutFileType {
   Png = 'png',
   WebP = 'webp',
   Bmp = 'bmp',
-  Heif = 'heif',
-  Heic = 'heic',
   Avif = 'avif',
   Svg = 'svg'
 }

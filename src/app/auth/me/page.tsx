@@ -1,6 +1,6 @@
 'use client';
 
-import { apiClient } from '@/shared/libs';
+import { Api } from '@/features/auth/api';
 import { useAsync } from 'react-use';
 
 type User = {
@@ -10,11 +10,6 @@ type User = {
   updated_at: string;
 };
 
-async function me(): Promise<User> {
-  const res = await apiClient.get(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/v1/auth/me');
-  return res.data as User;
-}
-
 type Item = {
   key: string;
   value: any;
@@ -22,7 +17,7 @@ type Item = {
 
 export default function Page() {
   const state = useAsync(async () => {
-    const user = await me();
+    const user = await Api.me();
     const items: Item[] = [];
     for (const [key, value] of Object.entries(user)) {
       items.push({ key, value });

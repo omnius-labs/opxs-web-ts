@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import { useAsync } from 'react-use';
 
-import { loginGoogle } from '@/features/auth/api';
+import { Api } from '@/features/auth/api';
 import { tokenStore } from '@/features/auth/libs/tokenStore';
 import { toErrorCode } from '@/shared/types';
 import { ErrorCode } from '@/shared/types/ErrorCode';
@@ -20,7 +20,7 @@ export default function Page() {
     const redirectUri = origin + '/auth/login/oauth2/google';
 
     try {
-      const token = await loginGoogle(code, redirectUri);
+      const token = await Api.loginGoogle(code, redirectUri);
       tokenStore.setToken(token);
 
       setTimeout(() => {

@@ -1,12 +1,13 @@
 'use client';
 
+import axios from 'axios';
 import { Button, Dropdown } from 'flowbite-react';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaFileImage } from 'react-icons/fa';
 
 import { Backoff, Path } from '@/shared/libs';
-import axios from 'axios';
+import { toast } from 'react-toastify';
 import { Api } from '../api';
 import { FileTypeConverter } from '../libs';
 import { AcceptedFile, AcceptedFileStatus, FileConvertImageOutFileType, FileConvertJobStatus } from '../types';
@@ -61,12 +62,7 @@ export function ConvertPanel() {
     const { job_id, upload_url } = await Api.upload(inFilename, inType, outFilename, outType);
 
     // ファイルをアップロード
-    await httpClient.put(upload_url, file.content, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/octet-stream'
-      }
-    });
+    await httpClient.put(upload_url, file.content, { headers: { 'Content-Type': 'application/octet-stream' } });
 
     try {
       await Backoff.exponentialBackoff(
@@ -100,6 +96,7 @@ export function ConvertPanel() {
       );
     } catch (e) {
       updateFile(index, { status: AcceptedFileStatus.Failed });
+      toast.error('Failed to convert file');
     }
   };
 
@@ -155,19 +152,15 @@ export function ConvertPanel() {
                   <FaFileImage />
                   <div className="text-xl grow">{file.filename}</div>
                   {file.status === AcceptedFileStatus.Pending ? (
-                    <Dropdown label={file.outType}>
-                      <Dropdown.Item onClick={() => handleFileTypeChange(index, FileConvertImageOutFileType.Png)}>
-                        PNG
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => handleFileTypeChange(index, FileConvertImageOutFileType.Jpg)}>
-                        JPEG
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => handleFileTypeChange(index, FileConvertImageOutFileType.Avif)}>
-                        AVIF
-                      </Dropdown.Item>
+                    <Dropdown label={file.outType.toUpperCase()}>
+                      {Object.values(FileConvertImageOutFileType).map((outType) => (
+                        <Dropdown.Item onClick={() => handleFileTypeChange(index, outType)}>
+                          {outType.toUpperCase()}
+                        </Dropdown.Item>
+                      ))}
                     </Dropdown>
                   ) : (
-                    <div className="text-xl">{file.outType}</div>
+                    <div className="text-xl">{file.outType.toUpperCase()}</div>
                   )}
                   {file.status === AcceptedFileStatus.Pending ? (
                     <Button size="md" color="purple" onClick={() => handleConvert(index)}>

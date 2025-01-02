@@ -89,12 +89,6 @@ export function Header() {
               <span className="text-sm text-gray-500 dark:text-gray-400">Converts uploaded files.</span>
             </a>
           </li>
-          <li>
-            <a href="/services/file-analyzer" className="block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-700">
-              <div className="font-semibold">File Analyzer</div>
-              <span className="text-sm text-gray-500 dark:text-gray-400">Analyzes uploaded files.</span>
-            </a>
-          </li>
         </ul>
       </MegaMenu.Dropdown>
     </MegaMenu>
