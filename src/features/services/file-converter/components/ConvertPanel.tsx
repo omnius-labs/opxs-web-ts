@@ -153,8 +153,8 @@ export function ConvertPanel() {
                   <div className="text-xl grow">{file.filename}</div>
                   {file.status === AcceptedFileStatus.Pending ? (
                     <Dropdown label={file.outType.toUpperCase()}>
-                      {Object.values(FileConvertImageOutFileType).map((outType) => (
-                        <Dropdown.Item onClick={() => handleFileTypeChange(index, outType)}>
+                      {Object.values(FileConvertImageOutFileType).map((outType, outTypeIndex) => (
+                        <Dropdown.Item key={outTypeIndex} onClick={() => handleFileTypeChange(index, outType)}>
                           {outType.toUpperCase()}
                         </Dropdown.Item>
                       ))}
