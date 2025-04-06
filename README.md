@@ -62,4 +62,4 @@ This project is released under the MIT License. For more details, please refer t
 
 ## Contribution
 
-If you would like to contribute to this project, please contact us through [Issues](https://github.com/omnius-labs/axus-daemon-rs/issues) or [Pull Requests](https://github.com/omnius-labs/axus-daemon-rs/pulls) on GitHub.
+If you would like to contribute to this project, please contact us through [Issues](https://github.com/omnius-labs/opxs-web-ts/issues) or [Pull Requests](https://github.com/omnius-labs/opxs-web-ts/pulls) on GitHub.

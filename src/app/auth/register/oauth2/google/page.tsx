@@ -36,8 +36,8 @@ export default function Page() {
         }, 3000);
 
         switch (errorCode) {
-          case ErrorCode.UserNotFound:
-            var errorMessage = 'User not found';
+          case ErrorCode.Unauthorized:
+            var errorMessage = 'unauthorized';
             throw new Error(errorMessage);
           default:
             var errorMessage = 'Unknown error';

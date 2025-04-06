@@ -3,8 +3,8 @@ export enum ErrorCode {
   InternalServerError = 'InternalServerError',
   BadRequest = 'BadRequest',
   Unauthorized = 'Unauthorized',
-  UserNotFound = 'UserNotFound',
-  DuplicateEmail = 'DuplicateEmail'
+  NotFound = 'NotFound',
+  Duplicated = 'Duplicated'
 }
 
 export function toErrorCode(value: string): ErrorCode {
